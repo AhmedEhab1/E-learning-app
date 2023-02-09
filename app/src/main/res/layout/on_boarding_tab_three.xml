@@ -1,0 +1,85 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:orientation="vertical"
+    tools:layoutDirection="rtl"
+    android:layout_height="match_parent"
+    tools:context=".ui.onBoarding.fragments.OnBoardingTabOneFragment">
+
+
+    <ImageView
+        android:id="@+id/image"
+        android:layout_width="match_parent"
+        android:layout_marginTop="@dimen/margin_top"
+        android:layout_height="350dp"
+        tools:src="@tools:sample/avatars" />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_marginTop="-20dp"
+        android:padding="20dp"
+        android:background="@drawable/onboarding_text_bg"
+        android:orientation="vertical">
+
+        <ScrollView
+            android:layout_width="match_parent"
+            android:layout_weight="1"
+            android:layout_height="match_parent">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical" >
+
+                <TextView
+                    android:id="@+id/header_title"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="15dp"
+                    tools:text="البرنامج التدريبي المجاني" />
+
+                <TextView
+                    android:id="@+id/title"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="5dp"
+                    android:layout_marginEnd="100dp"
+                    android:textColor="#2C2C2C"
+                    android:textSize="33sp"
+                    android:fontFamily="@font/janna_bold"
+                    tools:text="أفضل ممارسات التجارة الإلكترونية" />
+
+                <TextView
+                    android:id="@+id/description"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="15dp"
+                    android:layout_weight="1"
+                    android:textColor="@color/text_color_gray"
+                    android:textSize="@dimen/text_size_medium"
+                    tools:text="أول برنامج تدريبي مجاني متكامل عن التجارة الإلكترونية باللغة العربية في الشرق الأوسط. البرنامج الذي يرشدك وبشكل مجاني لإطلاق مشروعاتك الافتراضية، ويساعدك على الانطلاق بمتجرك الإلكتروني وتحقيق الربحية. التدريب يقدم شرح لحالات دراسية حقيقية لـ 55 مشروعا للتجارة الإلكترونية" />
+            </LinearLayout>
+        </ScrollView>
+
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/btn_add_to_cart"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/button_height"
+            android:layout_marginVertical="12dp"
+            android:gravity="center"
+            android:insetTop="0dp"
+            android:insetBottom="0dp"
+            android:minWidth="83dp"
+            android:minHeight="36dp"
+            android:text="@string/start_training"
+            android:textAllCaps="false"
+            android:textColor="@color/white"
+            android:textStyle="bold"
+            app:backgroundTint="@color/purple"
+            app:cornerRadius="35dp"
+            app:iconGravity="textStart" />
+    </LinearLayout>
+</LinearLayout>

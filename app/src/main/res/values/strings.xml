@@ -1,0 +1,37 @@
+<resources>
+    <string name="app_name">E Commerce Club</string>
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="power_by_raqamyat">برعاية شركة رقميات</string>
+    <string name="start_training">ابدأ التدريب مجانا</string>
+    <string name="login">تسجيل دخول</string>
+    <string name="email">البريد الالكتروني</string>
+    <string name="password">كلمة المرور</string>
+    <string name="confirm_password">تأكيد كلمة المرور</string>
+    <string name="create_account">إنشاء حساب</string>
+    <string name="google_login">تسجيل الدخول عبر جوجل</string>
+    <string name="test">888888</string>
+    <string name="enter_valid_email">من فضلك ادخل بريد صالح</string>
+    <string name="enter_valid_password">من فضلك ادخل رقم سري صالح</string>
+    <string name="enter_valid_name">من فضلك ادخل اسم صالح</string>
+    <string name="enter_valid_job">من فضلك ادخل اسم وظيفة صالح</string>
+    <string name="choose_strong_password">اختر كلمة سر قوية</string>
+    <string name="create_new_password">أنشئ كلمة سر جديدة</string>
+    <string name="code_you_have_receive">الرمز المتغير</string>
+    <string name="enter_code">من فضلك أدخل الرمز المتغير المرسل إلى</string>
+    <string name="next">التالى</string>
+    <string name="forget_password_ex">لا تقلق، يمكنك إعادة ضبط كلمة المرور المسجلة في حسابك وتسجيل الدخول لنادي التجارة الإلكترونية باتباع الخطوات التالية</string>
+    <string name="did_you_forget_password">هل نسيت كلمة السر الخاصة بك؟</string>
+    <string name="phone_number">رقم التليفون</string>
+    <string name="job">المهنة</string>
+    <string name="name">الاسم</string>
+    <string name="agree_terms"><u>أوافق على شروط الاستخدام</u></string>
+    <string name="no_account"><u>ليس لديك حساب</u></string>
+    <string name="forget_password"><u>نسيت كلمة السر؟</u></string>
+    <string name="forget_password2">نسيت كلمة السر</string>
+    <string name="yes">نعم</string>
+    <string name="cancel">إلغاء</string>
+    <string name="error">خطاء</string>
+    <string name="error_message">حدث خطاء ما</string>
+
+</resources>
