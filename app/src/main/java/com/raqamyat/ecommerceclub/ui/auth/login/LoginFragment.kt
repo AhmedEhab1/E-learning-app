@@ -13,13 +13,14 @@ import com.raqamyat.ecommerceclub.base.BaseFragment
 import com.raqamyat.ecommerceclub.databinding.LoginFragmentBinding
 import com.raqamyat.ecommerceclub.entities.LoginParams
 import com.raqamyat.ecommerceclub.ui.auth.ShowPasswordHelper
+import com.raqamyat.ecommerceclub.ui.auth.UserData
 import com.raqamyat.ecommerceclub.utilities.FormValidation
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.launch
 
 
 @AndroidEntryPoint
-class LoginFragment : BaseFragment()  {
+class LoginFragment : BaseFragment() {
     private lateinit var binding: LoginFragmentBinding
     private var show = false
     private val viewModel: LoginViewModel by viewModels()
@@ -66,14 +67,14 @@ class LoginFragment : BaseFragment()  {
     }
 
     private fun isInputsValid() {
-        binding.loginBtn.setOnClickListener{
+        binding.loginBtn.setOnClickListener {
             val email = binding.email.text.toString()
             val password = binding.password.text.toString()
-            if (!formValidation.isValidEmail(email)){
+            if (!formValidation.isValidEmail(email)) {
                 showErrorDialog(getString(R.string.enter_valid_email))
-            }else if (!formValidation.isValidPassword(password)){
+            } else if (!formValidation.isValidPassword(password)) {
                 showErrorDialog(getString(R.string.enter_valid_password))
-            }else {
+            } else {
                 val request = LoginParams()
                 request.email = email
                 request.password = password
@@ -82,7 +83,7 @@ class LoginFragment : BaseFragment()  {
         }
     }
 
-    private fun login(request : LoginParams) {
+    private fun login(request: LoginParams) {
         showLoading()
         viewModel.loginRequest(request)
     }
@@ -91,10 +92,14 @@ class LoginFragment : BaseFragment()  {
         lifecycleScope.launch {
             viewModel.loginResponse.observe(viewLifecycleOwner) {
                 dismissLoading()
-                Log.d("TAG", "loginResponse: " + it?.data?.email)
+                UserData(requireActivity()).saveUserData(it!!.data)
+                Navigation.findNavController(requireView()).navigate(
+                    R.id.action_loginFragment_to_homeFragment
+                )
             }
         }
     }
+
     private fun errorMessage() {
         lifecycleScope.launch {
             viewModel.errorMessage.observe(viewLifecycleOwner) {

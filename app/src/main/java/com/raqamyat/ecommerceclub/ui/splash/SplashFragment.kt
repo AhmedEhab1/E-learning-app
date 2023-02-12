@@ -9,6 +9,7 @@ import androidx.lifecycle.lifecycleScope
 import androidx.navigation.Navigation.findNavController
 import com.raqamyat.ecommerceclub.R
 import com.raqamyat.ecommerceclub.databinding.SplashFragmentBinding
+import com.raqamyat.ecommerceclub.ui.auth.UserData
 import kotlinx.coroutines.*
 
 
@@ -28,9 +29,17 @@ class SplashFragment : Fragment() {
 
         lifecycleScope.launch {
             delay(2000L)
-            findNavController(requireView()).navigate(
-                R.id.action_splashFragment_to_onboardingFragment
-            )
+            var token = UserData(requireActivity()).getUserData()?.token
+            if (token.equals("")|| token == null ){
+                findNavController(requireView()).navigate(
+                    R.id.action_splashFragment_to_onboardingFragment
+                )
+            }else {
+                findNavController(requireView()).navigate(
+                    R.id.action_splashFragment_to_homeFragment
+                )
+            }
+
         }
     }
 

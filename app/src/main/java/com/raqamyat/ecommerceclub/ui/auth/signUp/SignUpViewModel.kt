@@ -17,7 +17,7 @@ import javax.inject.Inject
 class SignUpViewModel @Inject constructor(
     private val auth: AuthorizationRepository
 ) : ViewModel() {
-    val response: MutableLiveData<APIResponse<UserModel>?> = MutableLiveData(null)
+    val response: MutableLiveData<APIResponse<UserModel>?> = MutableLiveData()
     var errorMessage: MutableLiveData<String?> = MutableLiveData()
 
     fun signUpRequest(params: RegistrationParams) {

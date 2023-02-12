@@ -1,4 +1,4 @@
-package com.raqamyat.ecommerceclub
+package com.raqamyat.ecommerceclub.ui.auth.resetPassword
 
 import android.os.Bundle
 import androidx.fragment.app.Fragment

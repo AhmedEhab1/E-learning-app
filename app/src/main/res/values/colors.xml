@@ -14,4 +14,5 @@
     <color name="google_color">#DD4B39</color>
     <color name="otp_bg">#F8F8F8</color>
     <color name="textColorGray">#919699</color>
+    <color name="hint_color">#B8B8B8</color>
 </resources>

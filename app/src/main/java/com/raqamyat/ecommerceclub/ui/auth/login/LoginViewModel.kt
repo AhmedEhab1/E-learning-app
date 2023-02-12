@@ -17,7 +17,7 @@ import javax.inject.Inject
 class LoginViewModel @Inject constructor(
     private val auth : AuthorizationRepository
 ): ViewModel() {
-     val loginResponse: MutableLiveData<APIResponse<UserModel>?> = MutableLiveData(null)
+     val loginResponse: MutableLiveData<APIResponse<UserModel>?> = MutableLiveData()
     var errorMessage: MutableLiveData<String?> = MutableLiveData()
 
     fun loginRequest(loginParams: LoginParams){

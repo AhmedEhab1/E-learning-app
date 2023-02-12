@@ -6,11 +6,13 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
+import androidx.navigation.Navigation
 import com.raqamyat.ecommerceclub.R
 import com.raqamyat.ecommerceclub.base.BaseFragment
 import com.raqamyat.ecommerceclub.databinding.SignUpFragmentBinding
 import com.raqamyat.ecommerceclub.entities.RegistrationParams
 import com.raqamyat.ecommerceclub.ui.auth.ShowPasswordHelper
+import com.raqamyat.ecommerceclub.ui.auth.UserData
 import com.raqamyat.ecommerceclub.utilities.FormValidation
 import kotlinx.coroutines.launch
 
@@ -86,6 +88,10 @@ class SignUpFragment : BaseFragment() {
     private fun signUpResponse(){
         viewModel.response.observe(viewLifecycleOwner){
             dismissLoading()
+            UserData(requireActivity()).saveUserData(it!!.data)
+            Navigation.findNavController(requireView()).navigate(
+                R.id.action_signUpFragment_to_homeFragment
+            )
         }
     }
 
