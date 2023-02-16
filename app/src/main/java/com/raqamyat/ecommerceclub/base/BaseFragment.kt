@@ -1,19 +1,21 @@
 package com.raqamyat.ecommerceclub.base
 
+import android.R
+import android.content.Context
 import android.os.Build
 import android.os.Bundle
 import android.os.VibrationEffect
 import android.os.Vibrator
 import android.util.Log
-import android.view.HapticFeedbackConstants
+import android.view.View
+import android.widget.ImageView
 import androidx.core.content.ContextCompat.getSystemService
 import androidx.fragment.app.Fragment
-import androidx.lifecycle.MutableLiveData
-import androidx.lifecycle.lifecycleScope
+import androidx.navigation.Navigation.findNavController
+import com.raqamyat.ecommerceclub.data.PreferencesHelper
 import com.raqamyat.ecommerceclub.utilities.Loading
 import com.raqamyat.ecommerceclub.utilities.errorDialog.ErrorDialog
-import dagger.hilt.android.AndroidEntryPoint
-import kotlinx.coroutines.launch
+
 
 open class BaseFragment : Fragment() {
     private val loading = Loading()
@@ -21,7 +23,9 @@ open class BaseFragment : Fragment() {
     fun showLoading() {
         loading.show(requireActivity().supportFragmentManager, "loading")
     }
-
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+    }
     fun dismissLoading() {
         if (loading.dialog != null)
             loading.dismiss()
@@ -50,5 +54,15 @@ open class BaseFragment : Fragment() {
         }
     }
 
+    public fun back(){
+        findNavController(requireView()).popBackStack()
+    }
 
+    fun getPreferencesHelper(): PreferencesHelper {
+        return PreferencesHelper(
+            requireActivity()!!.getSharedPreferences(
+                requireActivity()!!.getString(com.raqamyat.ecommerceclub.R.string.app_name), Context.MODE_PRIVATE
+            )
+        )
+    }
 }

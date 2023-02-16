@@ -18,11 +18,10 @@
         android:layout_marginEnd="@dimen/margin_start_end"
         android:orientation="horizontal">
 
-        <ImageView
-            android:id="@+id/imageView3"
+        <include
+            layout="@layout/back_view"
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:src="@drawable/backbtn_icon" />
+            android:layout_height="wrap_content" />
 
         <TextView
             android:id="@+id/textView2"
@@ -89,7 +88,7 @@
             android:orientation="vertical">
 
             <com.airbnb.lottie.LottieAnimationView
-                android:id="@+id/halloweenLottie"
+                android:id="@+id/lottie"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 app:lottie_autoPlay="true"
@@ -124,8 +123,7 @@
                 android:layoutDirection="ltr"
                 app:textSize="6sp"
                 app:pinLength="4"
-                app:cursorVisible="false"
-                app:forceKeyboard="true"
+                app:cursorVisible="true"
                 app:hint=""
                 app:inputType="number"
                 app:password="false"/>

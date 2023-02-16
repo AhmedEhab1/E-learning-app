@@ -107,4 +107,11 @@ class LoginFragment : BaseFragment() {
             }
         }
     }
+
+//    public fun back(view: View){
+//        Navigation.findNavController(requireView()).popBackStack()
+//
+//    }
+
+    fun back(view: View) {}
 }

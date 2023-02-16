@@ -11,6 +11,16 @@
     <string name="create_account">إنشاء حساب</string>
     <string name="google_login">تسجيل الدخول عبر جوجل</string>
     <string name="test">888888</string>
+    <string name="certificate_message">لم تحصل علي اى شهادة حتى الان</string>
+    <string name="confirm_change_password">تأكيد كلمة المرور الجديدة</string>
+    <string name="change_password">تغيير كلمة المرور</string>
+    <string name="old_password">كلمة المرور الحالية</string>
+    <string name="save">حفظ</string>
+    <string name="certificates">الشهادات</string>
+    <string name="account_info">المعلومات الرئيسية</string>
+    <string name="my_account">حسابي</string>
+    <string name="hello">مرحبا</string>
+    <string name="wrong_code">الكود الذي ادخلته خطاء</string>
     <string name="enter_valid_email">من فضلك ادخل بريد صالح</string>
     <string name="enter_valid_password">من فضلك ادخل رقم سري صالح</string>
     <string name="enter_valid_name">من فضلك ادخل اسم صالح</string>
