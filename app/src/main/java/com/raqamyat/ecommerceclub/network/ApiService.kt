@@ -15,6 +15,9 @@ interface ApiService {
     @POST("register")
     suspend fun register(@Body request: RegistrationParams?) : APIResponse<UserModel>
 
+    @POST("profile/update-profile")
+    suspend fun updateProfile(@Body request: AccountInfoParams?) : APIResponse<UserModel>
+
     @POST("forget-password/send-code")
     suspend fun sendEmailCode(@Body request: ForgetPasswordModel?) : APIResponse<ForgetPasswordModel>
 

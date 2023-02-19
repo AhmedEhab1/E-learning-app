@@ -24,7 +24,6 @@ class SignUpFragment : BaseFragment() {
     private val viewModel: SignUpViewModel by viewModels()
     private var formValidation = FormValidation()
 
-
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?
     ): View? {
@@ -79,6 +78,8 @@ class SignUpFragment : BaseFragment() {
             showErrorDialog(getString(R.string.enter_valid_password))
         }else if (!formValidation.isValidPassword(params.password_confirmation.toString())){
             showErrorDialog(getString(R.string.enter_valid_password))
+        }else if (!formValidation.isValidNumber(params.mobile.toString())){
+            showErrorDialog(getString(R.string.enter_valid_mobile))
         }else {
             showLoading()
             viewModel.signUpRequest(params)

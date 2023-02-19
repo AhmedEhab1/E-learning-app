@@ -17,7 +17,7 @@ class FormValidation {
     }
 
     fun isValidNumber(num: String): Boolean {
-        return num.isNotEmpty() && num.length == 10
+        return num.isNotEmpty() && num.length == 11
     }
 
     fun isValidName(name: String): Boolean {

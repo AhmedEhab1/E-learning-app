@@ -26,6 +26,7 @@ class UserData(private var context: Context? = null) {
         userModel.id = getPreferencesHelper().getInt("userId")
         userModel.email = getPreferencesHelper().getString("email")
         userModel.image = getPreferencesHelper().getString("image")
+        userModel.name = getPreferencesHelper().getString("name")
         userModel.job = getPreferencesHelper().getString("job")
         userModel.mobile = getPreferencesHelper().getString("mobile")
         userModel.token = getPreferencesHelper().getString("token")

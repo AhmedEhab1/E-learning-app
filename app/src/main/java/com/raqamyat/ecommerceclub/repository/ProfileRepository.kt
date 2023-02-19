@@ -11,5 +11,9 @@ class ProfileRepository@Inject constructor (private val  apiService: ApiService)
        return apiService.uploadProfileImage(image)
     }
 
+   suspend fun updateProfile(params: AccountInfoParams): APIResponse<UserModel> {
+       return apiService.updateProfile(params)
+    }
+
 
 }

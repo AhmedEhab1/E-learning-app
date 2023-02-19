@@ -3,6 +3,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    tools:layoutDirection="rtl"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     tools:context=".ui.profile.AccountInfoFragment">
 
@@ -91,7 +92,7 @@
                             android:background="@android:color/transparent"
                             android:ems="10"
                             android:hint="mymail@gmail.com"
-                            android:inputType="textPersonName"
+                            android:inputType="textEmailAddress"
                             android:textAlignment="viewStart"
                             android:textColorHint="@color/hint_color"
                             android:textSize="14sp" />
@@ -139,7 +140,7 @@
                         android:orientation="vertical">
 
                         <com.google.android.material.button.MaterialButton
-                            android:id="@+id/signUpBtn"
+                            android:id="@+id/saveBtn"
                             android:layout_width="match_parent"
                             android:layout_height="@dimen/button_height"
                             android:layout_marginTop="7dp"
