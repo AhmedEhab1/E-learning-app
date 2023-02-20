@@ -39,6 +39,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="15dp"
+                    android:visibility="gone"
                     tools:text="البرنامج التدريبي المجاني" />
 
                 <TextView
@@ -67,31 +68,62 @@
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:gravity="center"
-            android:layout_marginTop="10dp"
-            android:layout_marginBottom="20dp"
-            android:orientation="horizontal">
+            android:orientation="vertical">
+
+            <com.google.android.material.button.MaterialButton
+                android:id="@+id/start"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/button_height"
+                android:layout_marginVertical="12dp"
+                android:gravity="center"
+                android:insetTop="0dp"
+                android:visibility="gone"
+                android:insetBottom="0dp"
+                android:minWidth="83dp"
+                android:minHeight="36dp"
+                android:text="@string/start_training"
+                android:textAllCaps="false"
+                android:textColor="@color/white"
+                android:textStyle="bold"
+                app:backgroundTint="@color/purple"
+                app:cornerRadius="35dp"
+                app:iconGravity="textStart" />
 
             <LinearLayout
-                android:layout_width="14dp"
-                android:layout_height="14dp"
-                android:layout_margin="5dp"
-                android:background="@drawable/ic_circle"
-              />
-            <LinearLayout
-                android:layout_width="14dp"
-                android:layout_height="14dp"
-                android:layout_margin="5dp"
-                android:background="@drawable/ic_circle"
-              />
-            <LinearLayout
-                android:layout_width="14dp"
-                android:layout_height="14dp"
-                android:layout_margin="5dp"
-                android:backgroundTint="@color/purple"
-                android:background="@drawable/ic_circle"
-              />
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10dp"
+                android:layout_marginBottom="20dp"
+                android:id="@+id/pageNum"
+                android:gravity="center"
+                android:orientation="horizontal">
 
+                <LinearLayout
+                    android:layout_width="14dp"
+                    android:orientation="vertical"
+                    android:layout_height="14dp"
+                    android:id="@+id/page3"
+                    android:layout_margin="5dp"
+                    android:background="@drawable/ic_circle"
+                    />
+
+                <LinearLayout
+                    android:layout_width="14dp"
+                    android:layout_height="14dp"
+                    android:layout_margin="5dp"
+                    android:orientation="vertical"
+                    android:id="@+id/page2"
+                    android:background="@drawable/ic_circle" />
+
+                <LinearLayout
+                    android:layout_width="14dp"
+                    android:layout_height="14dp"
+                    android:orientation="vertical"
+                    android:id="@+id/page1"
+                    android:layout_margin="5dp"
+                    android:background="@drawable/ic_circle" />
+
+            </LinearLayout>
         </LinearLayout>
     </LinearLayout>
 </LinearLayout>

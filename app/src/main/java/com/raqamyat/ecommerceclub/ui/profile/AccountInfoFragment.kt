@@ -1,23 +1,17 @@
 package com.raqamyat.ecommerceclub.ui.profile
 
 import android.os.Bundle
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
-import androidx.navigation.Navigation
 import com.raqamyat.ecommerceclub.R
 import com.raqamyat.ecommerceclub.base.BaseFragment
 import com.raqamyat.ecommerceclub.databinding.AccountInfoFragmentBinding
-import com.raqamyat.ecommerceclub.databinding.FragmentProfileBinding
 import com.raqamyat.ecommerceclub.entities.AccountInfoParams
-import com.raqamyat.ecommerceclub.entities.RegistrationParams
-import com.raqamyat.ecommerceclub.entities.UserModel
 import com.raqamyat.ecommerceclub.ui.auth.UserData
 import com.raqamyat.ecommerceclub.ui.profile.viewModels.AccountInfoViewModel
-import com.raqamyat.ecommerceclub.ui.profile.viewModels.ProfileViewModel
 import com.raqamyat.ecommerceclub.utilities.FormValidation
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.launch
@@ -43,7 +37,7 @@ class AccountInfoFragment : BaseFragment() {
     private fun init() {
         isInputsValid()
         errorMessage()
-        signUpResponse()
+        response()
         setData()
     }
 
@@ -64,13 +58,13 @@ class AccountInfoFragment : BaseFragment() {
             showErrorDialog(getString(R.string.enter_valid_name))
         } else if (!formValidation.isValidNumber(params.mobile.toString())) {
             showErrorDialog(getString(R.string.enter_valid_mobile))
-        } else {
+        } else{
             showLoading()
             viewModel.updateProfile(params)
         }
     }
 
-    private fun signUpResponse() {
+    private fun response() {
         viewModel.response.observe(viewLifecycleOwner) {
             dismissLoading()
             showErrorDialog(it?.message.toString())

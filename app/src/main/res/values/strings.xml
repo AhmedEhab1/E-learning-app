@@ -23,6 +23,7 @@
     <string name="wrong_code">الكود الذي ادخلته خطاء</string>
     <string name="enter_valid_email">من فضلك ادخل بريد صالح</string>
     <string name="enter_valid_password">من فضلك ادخل رقم سري صالح</string>
+    <string name="enter_same_password">كلمة المرور غير متطابقة</string>
     <string name="enter_valid_mobile">من فضلك ادخل رقم هاتف صالح</string>
     <string name="enter_valid_name">من فضلك ادخل اسم صالح</string>
     <string name="enter_valid_job">من فضلك ادخل اسم وظيفة صالح</string>

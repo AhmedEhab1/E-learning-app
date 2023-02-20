@@ -25,4 +25,8 @@ class AuthorizationRepository@Inject constructor (private val  apiService: ApiSe
     suspend fun resetPassword(params: ResetPasswordModel): APIResponse<Any> {
        return apiService.resetPassword(params)
     }
+
+    suspend fun getOnBoardingData(): APIResponse<List<WelcomeModel>> {
+       return apiService.getOnBoardingData()
+    }
 }

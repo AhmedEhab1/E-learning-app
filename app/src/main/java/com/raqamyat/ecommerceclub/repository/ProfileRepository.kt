@@ -15,5 +15,9 @@ class ProfileRepository@Inject constructor (private val  apiService: ApiService)
        return apiService.updateProfile(params)
     }
 
+   suspend fun updatePassword(params: UpdatePasswordParams): APIResponse<UserModel> {
+       return apiService.updatePassword(params)
+    }
+
 
 }

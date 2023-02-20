@@ -4,6 +4,7 @@ import com.raqamyat.ecommerceclub.entities.*
 import okhttp3.MultipartBody
 import retrofit2.Call
 import retrofit2.http.Body
+import retrofit2.http.GET
 import retrofit2.http.Multipart
 import retrofit2.http.POST
 import retrofit2.http.Part
@@ -18,6 +19,9 @@ interface ApiService {
     @POST("profile/update-profile")
     suspend fun updateProfile(@Body request: AccountInfoParams?) : APIResponse<UserModel>
 
+    @POST("profile/update-password")
+    suspend fun updatePassword(@Body request: UpdatePasswordParams?) : APIResponse<UserModel>
+
     @POST("forget-password/send-code")
     suspend fun sendEmailCode(@Body request: ForgetPasswordModel?) : APIResponse<ForgetPasswordModel>
 
@@ -26,6 +30,9 @@ interface ApiService {
 
     @POST("forget-password/rest-password")
     suspend fun resetPassword(@Body request: ResetPasswordModel?) : APIResponse<Any>
+
+    @GET("welcome")
+    suspend fun getOnBoardingData() : APIResponse<List<WelcomeModel>>
 
     @Multipart
     @POST("profile/update-image")
