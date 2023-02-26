@@ -35,7 +35,7 @@ class OnboardingFragment : Fragment(), OnboardingAdapter.ListItemClickListener {
     }
 
     private fun init() {
-        var list: List<WelcomeModel> = arguments?.getSerializable("model") as List<WelcomeModel>
+        val list: List<WelcomeModel> = arguments?.getSerializable("model") as List<WelcomeModel>
 
         val adapter = OnboardingAdapter(list, requireActivity(), this)
         binding.recycler.adapter = adapter

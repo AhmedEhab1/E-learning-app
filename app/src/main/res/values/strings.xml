@@ -11,6 +11,12 @@
     <string name="create_account">إنشاء حساب</string>
     <string name="google_login">تسجيل الدخول عبر جوجل</string>
     <string name="test">888888</string>
+    <string name="by">بواسطة</string>
+    <string name="articles">مقالات</string>
+    <string name="continue_lessons">استمر من حيث توقفت</string>
+    <string name="complete_your_lessons">أكمل دروسك بحماس</string>
+    <string name="home_course_title">مبادئ التجارة الإلكترونية</string>
+    <string name="lessons">الدروس</string>
     <string name="certificate_message">لم تحصل علي اى شهادة حتى الان</string>
     <string name="confirm_change_password">تأكيد كلمة المرور الجديدة</string>
     <string name="change_password">تغيير كلمة المرور</string>

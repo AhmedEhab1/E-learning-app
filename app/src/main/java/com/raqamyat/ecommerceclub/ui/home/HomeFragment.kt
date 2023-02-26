@@ -9,11 +9,12 @@ import com.raqamyat.ecommerceclub.R
 import com.raqamyat.ecommerceclub.base.BaseFragment
 import com.raqamyat.ecommerceclub.databinding.ForgetPasswordFragmentBinding
 import com.raqamyat.ecommerceclub.databinding.HomeFragmentBinding
+import dagger.hilt.android.AndroidEntryPoint
 
+@AndroidEntryPoint
 class HomeFragment : BaseFragment() {
     private lateinit var binding: HomeFragmentBinding
-
-
+     
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         init()
@@ -26,7 +27,7 @@ class HomeFragment : BaseFragment() {
     }
 
     private fun init(){
-
+        binding.userName.text = getPreferencesHelper().getString("name")
     }
 
 }
