@@ -44,9 +44,6 @@ class OnboardingFragment : Fragment(), OnboardingAdapter.ListItemClickListener {
         binding.recycler.onFlingListener = null
         val snapHelper: SnapHelper = PagerSnapHelper()
         snapHelper.attachToRecyclerView(binding.recycler)
-
-//        binding.viewPager.adapter = OnBoardingPagerAdapter(requireActivity().supportFragmentManager)
-
     }
 
     override fun onListItemClick(position: Int) {

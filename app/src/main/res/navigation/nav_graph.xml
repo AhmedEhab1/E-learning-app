@@ -153,4 +153,9 @@
         android:name="com.raqamyat.ecommerceclub.ui.profile.ProfileFragment"
         android:label="fragment_profile"
         tools:layout="@layout/fragment_profile" /><action android:id="@+id/action_global_profileFragment" app:destination="@id/profileFragment"/>
+    <fragment
+        android:id="@+id/lessonsFragment"
+        android:name="com.raqamyat.ecommerceclub.LessonsFragment"
+        android:label="lessons_fragment"
+        tools:layout="@layout/lessons_fragment" />
 </navigation>
