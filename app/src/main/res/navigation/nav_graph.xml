@@ -28,6 +28,9 @@
             app:popExitAnim="@anim/push_right_out"
             app:popUpTo="@id/splashFragment"
             app:popUpToInclusive="true"/>
+        <action
+            android:id="@+id/action_splashFragment_to_lessonsFragment"
+            app:destination="@id/lessonsFragment" />
     </fragment>
     <fragment
         android:id="@+id/onboardingFragment"
@@ -155,7 +158,7 @@
         tools:layout="@layout/fragment_profile" /><action android:id="@+id/action_global_profileFragment" app:destination="@id/profileFragment"/>
     <fragment
         android:id="@+id/lessonsFragment"
-        android:name="com.raqamyat.ecommerceclub.LessonsFragment"
+        android:name="com.raqamyat.ecommerceclub.ui.lessons.LessonsFragment"
         android:label="lessons_fragment"
         tools:layout="@layout/lessons_fragment" />
 </navigation>

@@ -47,7 +47,7 @@ class SplashFragment : Fragment() {
             }else {
                 delay(2000L)
                 findNavController(requireView()).navigate(
-                    R.id.action_splashFragment_to_homeFragment
+                    R.id.action_splashFragment_to_lessonsFragment
                 )
             }
 
