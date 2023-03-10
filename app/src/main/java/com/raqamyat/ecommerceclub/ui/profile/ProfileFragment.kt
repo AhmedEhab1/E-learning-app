@@ -10,19 +10,15 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
-import androidx.navigation.Navigation
 import com.google.android.material.tabs.TabLayout
 import com.raqamyat.ecommerceclub.R
 import com.raqamyat.ecommerceclub.base.BaseFragment
 import com.raqamyat.ecommerceclub.data.Constants.REQUEST_PICK_IMAGE
 import com.raqamyat.ecommerceclub.databinding.FragmentProfileBinding
-import com.raqamyat.ecommerceclub.ui.auth.resetPassword.ResetPasswordViewModel
-import com.raqamyat.ecommerceclub.ui.onBoarding.adapter.OnBoardingPagerAdapter
 import com.raqamyat.ecommerceclub.ui.profile.viewModels.ProfileViewModel
 import com.raqamyat.ecommerceclub.utilities.ImageHelper
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.launch
-import okhttp3.MediaType
 import okhttp3.MediaType.Companion.toMediaTypeOrNull
 import okhttp3.MultipartBody
 import okhttp3.RequestBody
@@ -64,7 +60,7 @@ class ProfileFragment : BaseFragment() {
         )
         binding.tabLayout.tabGravity = TabLayout.GRAVITY_FILL
 
-        binding.viewPager.adapter = profilePagerAdapter(requireActivity().supportFragmentManager)
+        binding.viewPager.adapter = ProfilePagerAdapter(requireActivity().supportFragmentManager)
         binding.viewPager.currentItem = 0
         binding.viewPager.addOnPageChangeListener(TabLayout.TabLayoutOnPageChangeListener(binding.tabLayout))
         binding.tabLayout.addOnTabSelectedListener(object : TabLayout.OnTabSelectedListener {

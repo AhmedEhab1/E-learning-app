@@ -1,16 +1,14 @@
 package com.raqamyat.ecommerceclub.ui.lessons
 
 import android.os.Bundle
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
+import android.view.View.OnTouchListener
 import android.view.ViewGroup
-import android.widget.Button
-import androidx.fragment.app.FragmentTransaction
-import com.google.android.youtube.player.YouTubeInitializationResult
+import androidx.fragment.app.viewModels
+import androidx.lifecycle.lifecycleScope
+import androidx.recyclerview.widget.LinearLayoutManager
 import com.google.android.youtube.player.YouTubePlayer
-import com.google.android.youtube.player.YouTubePlayerFragment
-import com.google.android.youtube.player.YouTubePlayerSupportFragmentXKt
 import com.pierfrancescosoffritti.androidyoutubeplayer.core.player.listeners.AbstractYouTubePlayerListener
 import com.pierfrancescosoffritti.androidyoutubeplayer.core.player.listeners.YouTubePlayerListener
 import com.pierfrancescosoffritti.androidyoutubeplayer.core.player.options.IFramePlayerOptions
@@ -19,12 +17,16 @@ import com.pierfrancescosoffritti.androidyoutubeplayer.core.ui.DefaultPlayerUiCo
 import com.raqamyat.ecommerceclub.R
 import com.raqamyat.ecommerceclub.base.BaseFragment
 import com.raqamyat.ecommerceclub.databinding.LessonsFragmentBinding
+import com.raqamyat.ecommerceclub.entities.LastEpisode
 import dagger.hilt.android.AndroidEntryPoint
+import kotlinx.coroutines.launch
 
 
 @AndroidEntryPoint
-class LessonsFragment : BaseFragment(), YouTubePlayer.OnInitializedListener {
+class LessonsFragment : BaseFragment() , LessonsAdapter.LessonsClickListener {
     private lateinit var binding: LessonsFragmentBinding
+    private val viewModel: LessonsViewModel by viewModels()
+
     var onInitializedListener: YouTubePlayer.OnInitializedListener? = null
     var apiKey = "AIzaSyA4czZfjxZsJCXnTOxANReSrL_6su6PmE4"
 
@@ -42,65 +44,41 @@ class LessonsFragment : BaseFragment(), YouTubePlayer.OnInitializedListener {
     }
 
     private fun init() {
-//        val youTubePlayerFragment: YouTubePlayerSupportFragmentXKt = YouTubePlayerSupportFragmentXKt.newInstance()
-//        val transaction: FragmentTransaction = childFragmentManager.beginTransaction()
-//        transaction.replace(R.id.youtube, youTubePlayerFragment).commit()
-
-//        val youTubePlayerFragment =
-//            requireActivity().supportFragmentManager.findFragmentById(R.id.fragmentContainerView) as? YouTubePlayerSupportFragmentXKt
-//       //vv youTubePlayerFragment?.initialize(apiKey, this)
-
-
-//        youTubePlayerFragment.initialize(apiKey, object : YouTubePlayer.OnInitializedListener {
-//            override fun onInitializationSuccess(
-//
-//                provider: YouTubePlayer.Provider?,
-//                player: YouTubePlayer?,
-//                bln: Boolean
-//            ) {
-//                Log.e("onInitializationSuccess", "onInitializationSuccess: " )
-//
-//                player?.loadVideo("Hce74cEAAaE")
-//                player?.play()
-//            }
-//
-//            override fun onInitializationFailure(
-//                provider: YouTubePlayer.Provider?,
-//                result: YouTubeInitializationResult?
-//            ) {
-//                Log.e("error", "onInitializationFailure: " )
-////                Toast.makeText(applicationContext, "Something went wrong", Toast.LENGTH_SHORT).show()
-//            }
-//        })
-
-
+        showLoading()
+        viewModel.getLessons()
+        errorMessage()
+        requestResponse()
     }
 
-    override fun onInitializationSuccess(
-        p0: YouTubePlayer.Provider?,
-        p1: YouTubePlayer?,
-        p2: Boolean
-    ) {
-        TODO("Not yet implemented")
-
+    private fun errorMessage() {
+        lifecycleScope.launch {
+            viewModel.errorMessage.observe(viewLifecycleOwner) {
+                showErrorDialog(it.toString())
+            }
+        }
     }
 
-    override fun onInitializationFailure(
-        p0: YouTubePlayer.Provider?,
-        p1: YouTubeInitializationResult?
-    ) {
-        TODO("Not yet implemented")
+    private fun requestResponse() {
+        lifecycleScope.launch {
+            viewModel.response.observe(viewLifecycleOwner) {
+                dismissLoading()
+                initAdapter(it!!.data)
+            }
+        }
     }
 
+    private fun initAdapter(model : List<LastEpisode>){
+        val adapter = LessonsAdapter(model, requireActivity(), this)
+        binding.recycler.adapter = adapter
+        binding.recycler.layoutManager =object : LinearLayoutManager(requireActivity())
+        { override fun canScrollVertically() = false }
+    }
 
     fun youtube() {
-
         val thirdPartyYouTubePlayerView =
             requireView().findViewById<YouTubePlayerView>(R.id.third_party_player_view)
-
         thirdPartyYouTubePlayerView.enableAutomaticInitialization =
             false // We set it to false because we init it manually
-
 
         val listener: YouTubePlayerListener = object : AbstractYouTubePlayerListener() {
             override fun onReady(youTubePlayer: com.pierfrancescosoffritti.androidyoutubeplayer.core.player.YouTubePlayer) {
@@ -123,19 +101,24 @@ class LessonsFragment : BaseFragment(), YouTubePlayer.OnInitializedListener {
 
                     }
                 }
-
-
                 thirdPartyYouTubePlayerView.setCustomPlayerUi(defaultPlayerUiController.rootView)
-
                 val videoId = "Hce74cEAAaE"
                 youTubePlayer.cueVideo(videoId, 0F)
+
+                binding.textView2.setOnClickListener {
+                    val videoId2 = "PWqEPKduGm8"
+                    youTubePlayer.cueVideo(videoId2, 0F)
+                }
             }
         }
-
         // Disable iFrame UI
         val options: IFramePlayerOptions = IFramePlayerOptions.Builder().controls(0).build()
         thirdPartyYouTubePlayerView.initialize(listener, options)
 //        listener.on()
 
+    }
+
+    override fun onArticlesItemClick(position: Int) {
+        TODO("Not yet implemented")
     }
 }

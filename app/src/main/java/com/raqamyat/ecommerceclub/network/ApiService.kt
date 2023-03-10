@@ -37,6 +37,9 @@ interface ApiService {
     @GET("home")
     suspend fun getHome() : APIResponse<HomeModel>
 
+    @GET("lessons")
+    suspend fun getLessons() : APIResponse<List<LastEpisode>>
+
     @Multipart
     @POST("profile/update-image")
     suspend fun uploadProfileImage(@Part image: MultipartBody.Part): APIResponse<UserModel>

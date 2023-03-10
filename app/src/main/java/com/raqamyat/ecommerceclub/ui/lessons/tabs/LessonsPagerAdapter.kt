@@ -1,14 +1,13 @@
-package com.raqamyat.ecommerceclub.ui.profile
+package com.raqamyat.ecommerceclub.ui.lessons.tabs
 
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentManager
 import androidx.fragment.app.FragmentPagerAdapter
-import com.raqamyat.ecommerceclub.databinding.OnBoardingTabThreeBinding
-import com.raqamyat.ecommerceclub.ui.onBoarding.fragments.OnBoardingTabOneFragment
-import com.raqamyat.ecommerceclub.ui.onBoarding.fragments.OnBoardingTabThree
-import com.raqamyat.ecommerceclub.ui.onBoarding.fragments.OnBoardingTabTwoFragment
+import com.raqamyat.ecommerceclub.entities.LastEpisode
 
-class profilePagerAdapter(fm:FragmentManager) : FragmentPagerAdapter(fm) {
+class LessonsPagerAdapter(fm:FragmentManager , model : LastEpisode) : FragmentPagerAdapter(fm) {
+    var data = model
+
         override fun getCount(): Int {
             return 3;
         }
@@ -16,15 +15,15 @@ class profilePagerAdapter(fm:FragmentManager) : FragmentPagerAdapter(fm) {
         override fun getItem(position: Int): Fragment {
             when(position) {
                 0 -> {
-                    return AccountInfoFragment()
+                    return AboutLessonFragment(data)
                 }
                 1 -> {
-                    return UpdatePasswordFragment()
+                    return LessonsTabFragment()
                 } 2 -> {
-                    return CertificateFragment()
+                    return LessonsQuestionsTab()
                 }
                 else -> {
-                    return AccountInfoFragment()
+                    return AboutLessonFragment(data)
                 }
             }
         }

@@ -10,6 +10,8 @@ class HomeRepository@Inject constructor (private val  apiService: ApiService) {
    suspend fun getHome(): APIResponse<HomeModel> {
        return apiService.getHome()
     }
-
+    suspend fun getLessons(): APIResponse<List<LastEpisode>> {
+       return apiService.getLessons()
+    }
 
 }
