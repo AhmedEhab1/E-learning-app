@@ -5,7 +5,7 @@ import androidx.fragment.app.FragmentManager
 import androidx.fragment.app.FragmentPagerAdapter
 import com.raqamyat.ecommerceclub.entities.LastEpisode
 
-class LessonsPagerAdapter(fm:FragmentManager , model : LastEpisode) : FragmentPagerAdapter(fm) {
+class LessonsPagerAdapter(fm:FragmentManager , model : List<LastEpisode> , position: Int) : FragmentPagerAdapter(fm) {
     var data = model
 
         override fun getCount(): Int {
@@ -15,15 +15,15 @@ class LessonsPagerAdapter(fm:FragmentManager , model : LastEpisode) : FragmentPa
         override fun getItem(position: Int): Fragment {
             when(position) {
                 0 -> {
-                    return AboutLessonFragment(data)
+                    return AboutLessonFragment(data[position])
                 }
                 1 -> {
-                    return LessonsTabFragment()
+                    return LessonsTabFragment(data)
                 } 2 -> {
-                    return LessonsQuestionsTab()
+                    return LessonsQuestionsTab(data[position].questions)
                 }
                 else -> {
-                    return AboutLessonFragment(data)
+                    return AboutLessonFragment(data[position])
                 }
             }
         }

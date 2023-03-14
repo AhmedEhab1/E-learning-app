@@ -8,8 +8,10 @@ import android.view.ViewGroup
 import com.raqamyat.ecommerceclub.R
 import com.raqamyat.ecommerceclub.databinding.LessonsQuestionsTabBinding
 import com.raqamyat.ecommerceclub.databinding.LessonsTabFragmentBinding
+import com.raqamyat.ecommerceclub.entities.LastEpisode
+import com.raqamyat.ecommerceclub.entities.Question
 
-class LessonsQuestionsTab : Fragment() {
+class LessonsQuestionsTab(private val model: List<Question>) : Fragment() {
     private lateinit var binding : LessonsQuestionsTabBinding;
 
     override fun onCreateView(

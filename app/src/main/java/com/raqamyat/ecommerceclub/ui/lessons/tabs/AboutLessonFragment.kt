@@ -11,7 +11,6 @@ import com.raqamyat.ecommerceclub.databinding.FragmentOnBoardingTabTwoBinding
 import com.raqamyat.ecommerceclub.entities.LastEpisode
 import com.raqamyat.ecommerceclub.utilities.ImageHelper
 
-
 class AboutLessonFragment(private val model: LastEpisode) : Fragment() {
     private lateinit var binding: FragmentAboutLessonBinding;
 

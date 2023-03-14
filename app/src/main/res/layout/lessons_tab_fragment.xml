@@ -5,11 +5,10 @@
     android:layout_height="match_parent"
     tools:context=".ui.lessons.tabs.LessonsTabFragment">
 
-    <!-- TODO: Update blank fragment layout -->
-    <TextView
+
+    <androidx.recyclerview.widget.RecyclerView
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:gravity="center"
-        android:text="@string/lessons" />
-
+        android:layout_marginTop="10dp"
+        android:id="@+id/recycler"/>
 </FrameLayout>

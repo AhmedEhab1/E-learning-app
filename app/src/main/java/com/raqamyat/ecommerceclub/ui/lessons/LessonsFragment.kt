@@ -26,7 +26,7 @@ import kotlinx.coroutines.launch
 class LessonsFragment : BaseFragment() , LessonsAdapter.LessonsClickListener {
     private lateinit var binding: LessonsFragmentBinding
     private val viewModel: LessonsViewModel by viewModels()
-
+   private lateinit var youTubePlayer: com.pierfrancescosoffritti.androidyoutubeplayer.core.player.YouTubePlayer
     var onInitializedListener: YouTubePlayer.OnInitializedListener? = null
     var apiKey = "AIzaSyA4czZfjxZsJCXnTOxANReSrL_6su6PmE4"
 
@@ -63,6 +63,7 @@ class LessonsFragment : BaseFragment() , LessonsAdapter.LessonsClickListener {
             viewModel.response.observe(viewLifecycleOwner) {
                 dismissLoading()
                 initAdapter(it!!.data)
+                youTubePlayer.cueVideo(it.data[0].video_id, 0F)
             }
         }
     }
@@ -81,7 +82,8 @@ class LessonsFragment : BaseFragment() , LessonsAdapter.LessonsClickListener {
             false // We set it to false because we init it manually
 
         val listener: YouTubePlayerListener = object : AbstractYouTubePlayerListener() {
-            override fun onReady(youTubePlayer: com.pierfrancescosoffritti.androidyoutubeplayer.core.player.YouTubePlayer) {
+            override fun onReady(youTubePlayer1: com.pierfrancescosoffritti.androidyoutubeplayer.core.player.YouTubePlayer) {
+                youTubePlayer = youTubePlayer1
                 // We're using pre-made custom ui
                 val defaultPlayerUiController =
                     DefaultPlayerUiController(thirdPartyYouTubePlayerView, youTubePlayer)
@@ -102,13 +104,9 @@ class LessonsFragment : BaseFragment() , LessonsAdapter.LessonsClickListener {
                     }
                 }
                 thirdPartyYouTubePlayerView.setCustomPlayerUi(defaultPlayerUiController.rootView)
-                val videoId = "Hce74cEAAaE"
-                youTubePlayer.cueVideo(videoId, 0F)
+//                val videoId = "nhEYtMGCjzI"
+//                youTubePlayer.cueVideo(videoId, 0F)
 
-                binding.textView2.setOnClickListener {
-                    val videoId2 = "PWqEPKduGm8"
-                    youTubePlayer.cueVideo(videoId2, 0F)
-                }
             }
         }
         // Disable iFrame UI

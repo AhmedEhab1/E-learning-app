@@ -17,15 +17,15 @@ class LessonsViewHolder(
 ) :
     RecyclerView.ViewHolder(binding.root) {
 
-    fun bind(model: LastEpisode, context: Activity, position: Int) {
-        binding.title.text = model.title
-        val time = model.time + " دقيقة  "
+    fun bind(model: List<LastEpisode>, context: Activity, position: Int) {
+        binding.title.text = model[position].title
+        val time = model[position].time + " دقيقة  "
         binding.time.text = time
-        initTabLayout(context, model)
+        initTabLayout(context, model, position)
 
     }
 
-    private fun initTabLayout(context: Activity, model: LastEpisode) {
+    private fun initTabLayout(context: Activity, model: List<LastEpisode> , position : Int) {
         binding.tabLayout.addTab(
             binding.tabLayout.newTab().setText(context.getString(R.string.about_lesson))
         )
@@ -36,7 +36,7 @@ class LessonsViewHolder(
         binding.tabLayout.tabGravity = TabLayout.GRAVITY_FILL
         val fragmentManager: FragmentManager =
             (context as FragmentActivity).supportFragmentManager
-        binding.viewPager.adapter = LessonsPagerAdapter(fragmentManager, model)
+        binding.viewPager.adapter = LessonsPagerAdapter(fragmentManager, model, position)
 
         binding.viewPager.currentItem = 0
         binding.viewPager.addOnPageChangeListener(TabLayout.TabLayoutOnPageChangeListener(binding.tabLayout))
