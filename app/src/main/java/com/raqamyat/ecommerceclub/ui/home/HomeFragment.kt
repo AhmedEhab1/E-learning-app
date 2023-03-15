@@ -7,6 +7,7 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
+import androidx.navigation.Navigation
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.PagerSnapHelper
 import androidx.recyclerview.widget.SnapHelper
@@ -41,6 +42,7 @@ class HomeFragment : BaseFragment(), ArticlesAdapter.ArticlesClickListener {
         errorMessage()
         getHome()
         requestResponse()
+        continueStudying()
     }
 
     private fun getHome(){
@@ -82,4 +84,16 @@ class HomeFragment : BaseFragment(), ArticlesAdapter.ArticlesClickListener {
     override fun onArticlesItemClick(position: Int) {
     }
 
+    private fun continueStudying(){
+        binding.continueStudying.setOnClickListener{
+            Navigation.findNavController(requireView()).navigate(
+                R.id.action_homeFragment_to_lessonsFragment
+            )
+        }
+        binding.continueStudying2.setOnClickListener{
+            Navigation.findNavController(requireView()).navigate(
+                R.id.action_homeFragment_to_lessonsFragment
+            )
+        }
+    }
 }

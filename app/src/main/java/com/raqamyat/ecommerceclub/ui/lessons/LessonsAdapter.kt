@@ -1,18 +1,11 @@
 package com.raqamyat.ecommerceclub.ui.lessons
 
 import android.app.Activity
-import android.content.Context
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
-import com.raqamyat.ecommerceclub.databinding.ArticlesItemBinding
 import com.raqamyat.ecommerceclub.databinding.LessonsItemBinding
-import com.raqamyat.ecommerceclub.databinding.OnBoardingTabOneBinding
-import com.raqamyat.ecommerceclub.entities.BlogsModel
-import com.raqamyat.ecommerceclub.entities.HomeModel
 import com.raqamyat.ecommerceclub.entities.LastEpisode
-import com.raqamyat.ecommerceclub.entities.WelcomeModel
-import com.raqamyat.ecommerceclub.ui.onBoarding.fragments.OnBoardingViewHolder
 
 class LessonsAdapter(private val data: List<LastEpisode>, private val context: Activity,
                      private val listener: LessonsClickListener ) : RecyclerView.Adapter<LessonsViewHolder>() {
@@ -24,8 +17,7 @@ class LessonsAdapter(private val data: List<LastEpisode>, private val context: A
     }
 
     override fun onBindViewHolder(holder: LessonsViewHolder, position: Int) {
-
-        holder.bind(data, context, position)
+        holder.bind(data, context, position, listener)
     }
 
     override fun getItemCount(): Int {
@@ -33,9 +25,16 @@ class LessonsAdapter(private val data: List<LastEpisode>, private val context: A
     }
 
     interface LessonsClickListener {
-        fun onArticlesItemClick(position: Int)
+        fun onNextLessonClicked(position: Int)
     }
 
+    override fun getItemViewType(position: Int): Int {
+        return position
+    }
+
+    override fun getItemId(position: Int): Long {
+        return position.toLong()
+    }
 
 }
 

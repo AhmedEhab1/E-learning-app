@@ -20,6 +20,9 @@ class LessonsNumberViewHolder(
 
     fun bind(model: LastEpisode, context: Activity, position: Int) {
         binding.title.text = model.title
+        binding.itemView.setOnClickListener{
+            listener.onLessonClicked(position -1)
+        }
     }
 
 }

@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
     tools:context=".ui.lessons.tabs.AboutLessonFragment">
 
 
@@ -28,27 +28,79 @@
                 tools:text="والاجابة هي لأ مش لازم لأن في معظم الأحيان يكون من الأفضل أن صاحب المشروع والاجابة هي لأ مش لازم لأن في معظم الأحيان يكون من الأفضل أن صاحب المشروع (صاحب الفكرة) يكون شخص آخر غير صاحب رأس المال (من احد اسباب فشل الشركات) و لذلك فيمكنك اثناء تأدية" />
 
 
-            <com.google.android.material.button.MaterialButton
-                android:id="@+id/nextLesson"
+            <LinearLayout
                 android:layout_width="match_parent"
-                android:layout_height="@dimen/button_height"
-                android:layout_marginVertical="5dp"
+                android:layout_height="wrap_content"
                 android:layout_marginStart="@dimen/margin_start_end"
                 android:layout_marginTop="15dp"
                 android:layout_marginEnd="@dimen/margin_start_end"
-                android:gravity="center"
-                android:insetTop="0dp"
-                android:insetBottom="0dp"
-                android:minWidth="83dp"
-                android:minHeight="36dp"
-                android:text="@string/next_lesson"
-                android:textAllCaps="false"
-                android:textColor="@color/white"
-                android:textSize="18sp"
-                android:textStyle="bold"
-                app:backgroundTint="@color/purple"
-                app:cornerRadius="35dp"
-                app:iconGravity="textStart" />
+                android:orientation="horizontal">
+
+                <com.google.android.material.button.MaterialButton
+                    android:id="@+id/previewsLesson"
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/button_height"
+                    android:layout_weight="1"
+                    android:gravity="center"
+                    android:insetTop="0dp"
+                    android:insetBottom="0dp"
+                    android:minWidth="83dp"
+                    android:minHeight="36dp"
+                    android:text="@string/previous_lesson"
+                    android:textAllCaps="false"
+                    android:textColor="@color/white"
+                    android:textSize="18sp"
+                    android:textStyle="bold"
+                    android:visibility="gone"
+                    app:backgroundTint="@color/black"
+                    app:cornerRadius="35dp"
+                    app:iconGravity="textStart" />
+
+                <Space
+                    android:layout_width="15dp"
+                    android:layout_height="1dp" />
+
+                <com.google.android.material.button.MaterialButton
+                    android:id="@+id/nextLesson"
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/button_height"
+                    android:layout_weight="1"
+                    android:gravity="center"
+                    android:insetTop="0dp"
+                    android:insetBottom="0dp"
+                    android:minWidth="83dp"
+                    android:minHeight="36dp"
+                    android:text="@string/next_lesson"
+                    android:textAllCaps="false"
+                    android:textColor="@color/white"
+                    android:textSize="18sp"
+                    android:textStyle="bold"
+                    app:backgroundTint="@color/purple"
+                    app:cornerRadius="35dp"
+                    app:iconGravity="textStart" />
+
+                <com.google.android.material.button.MaterialButton
+                    android:id="@+id/obtainingCertificate"
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/button_height"
+                    android:layout_weight="1"
+                    android:gravity="center"
+                    android:insetTop="0dp"
+                    android:insetBottom="0dp"
+                    android:minWidth="83dp"
+                    android:minHeight="36dp"
+                    android:text="@string/Obtaining_certificate"
+                    android:textAllCaps="false"
+                    android:textColor="@color/white"
+                    android:textSize="18sp"
+                    android:textStyle="bold"
+                    android:visibility="gone"
+                    app:backgroundTint="@color/purple"
+                    app:cornerRadius="35dp"
+                    app:iconGravity="textStart" />
+
+            </LinearLayout>
+
 
             <View
                 android:layout_width="match_parent"

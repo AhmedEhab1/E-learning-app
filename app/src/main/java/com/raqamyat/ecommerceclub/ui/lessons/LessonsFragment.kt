@@ -1,6 +1,7 @@
 package com.raqamyat.ecommerceclub.ui.lessons
 
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.View.OnTouchListener
@@ -19,21 +20,23 @@ import com.raqamyat.ecommerceclub.base.BaseFragment
 import com.raqamyat.ecommerceclub.databinding.LessonsFragmentBinding
 import com.raqamyat.ecommerceclub.entities.LastEpisode
 import dagger.hilt.android.AndroidEntryPoint
+import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
 
 
 @AndroidEntryPoint
-class LessonsFragment : BaseFragment() , LessonsAdapter.LessonsClickListener {
+class LessonsFragment : BaseFragment(), LessonsAdapter.LessonsClickListener {
     private lateinit var binding: LessonsFragmentBinding
     private val viewModel: LessonsViewModel by viewModels()
-   private lateinit var youTubePlayer: com.pierfrancescosoffritti.androidyoutubeplayer.core.player.YouTubePlayer
+    private lateinit var youTubePlayer: com.pierfrancescosoffritti.androidyoutubeplayer.core.player.YouTubePlayer
     var onInitializedListener: YouTubePlayer.OnInitializedListener? = null
     var apiKey = "AIzaSyA4czZfjxZsJCXnTOxANReSrL_6su6PmE4"
+    private lateinit var  linearLayoutManager : LinearLayoutManager
+    private lateinit var lastEpisode : List<LastEpisode>
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         init()
-        youtube()
     }
 
     override fun onCreateView(
@@ -44,6 +47,7 @@ class LessonsFragment : BaseFragment() , LessonsAdapter.LessonsClickListener {
     }
 
     private fun init() {
+        youtube()
         showLoading()
         viewModel.getLessons()
         errorMessage()
@@ -61,18 +65,30 @@ class LessonsFragment : BaseFragment() , LessonsAdapter.LessonsClickListener {
     private fun requestResponse() {
         lifecycleScope.launch {
             viewModel.response.observe(viewLifecycleOwner) {
-                dismissLoading()
-                initAdapter(it!!.data)
-                youTubePlayer.cueVideo(it.data[0].video_id, 0F)
+                lifecycleScope.launch {
+                    dismissLoading()
+                    initAdapter(it!!.data)
+                    delay(4000)
+                    lastEpisode = it.data
+                    try {
+                        youTubePlayer.cueVideo(it.data[0].video_id, 0F)
+
+                    }catch (e : Exception){
+                        Log.e("error", "requestResponse: ",e )
+                    }
+                }
             }
         }
     }
 
-    private fun initAdapter(model : List<LastEpisode>){
+    private fun initAdapter(model: List<LastEpisode>) {
         val adapter = LessonsAdapter(model, requireActivity(), this)
         binding.recycler.adapter = adapter
-        binding.recycler.layoutManager =object : LinearLayoutManager(requireActivity())
-        { override fun canScrollVertically() = false }
+//         linearLayoutManager  = object : LinearLayoutManager(requireActivity()) {
+//            override fun canScrollVertically() = false
+//        }
+        linearLayoutManager  = LinearLayoutManager(requireActivity(), LinearLayoutManager.HORIZONTAL , false)
+        binding.recycler.layoutManager =linearLayoutManager
     }
 
     fun youtube() {
@@ -93,12 +109,14 @@ class LessonsFragment : BaseFragment() , LessonsAdapter.LessonsClickListener {
                 defaultPlayerUiController.setFullScreenButtonClickListener {
                     if (thirdPartyYouTubePlayerView.isFullScreen()) {
                         thirdPartyYouTubePlayerView.exitFullScreen()
-                        requireActivity().window.decorView.systemUiVisibility = View.SYSTEM_UI_FLAG_VISIBLE
+                        requireActivity().window.decorView.systemUiVisibility =
+                            View.SYSTEM_UI_FLAG_VISIBLE
                         // Show ActionBar
 
                     } else {
                         thirdPartyYouTubePlayerView.enterFullScreen()
-                        requireActivity().window.decorView.systemUiVisibility = View.SYSTEM_UI_FLAG_FULLSCREEN
+                        requireActivity().window.decorView.systemUiVisibility =
+                            View.SYSTEM_UI_FLAG_FULLSCREEN
                         // Hide ActionBar
 
                     }
@@ -116,7 +134,9 @@ class LessonsFragment : BaseFragment() , LessonsAdapter.LessonsClickListener {
 
     }
 
-    override fun onArticlesItemClick(position: Int) {
-        TODO("Not yet implemented")
+    override fun onNextLessonClicked(position: Int) {
+        Log.d("TAG", "onNextLessonClicked: $position")
+        youTubePlayer.cueVideo(lastEpisode[position+1].video_id, 0F)
+        linearLayoutManager.scrollToPositionWithOffset(position+1, 0);
     }
 }

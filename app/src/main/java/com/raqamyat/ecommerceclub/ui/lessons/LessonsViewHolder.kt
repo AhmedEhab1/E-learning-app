@@ -13,16 +13,16 @@ import com.raqamyat.ecommerceclub.ui.profile.ProfilePagerAdapter
 
 class LessonsViewHolder(
     private val binding: LessonsItemBinding,
-    private val listener: LessonsAdapter.LessonsClickListener
+    private var listener: LessonsAdapter.LessonsClickListener
 ) :
     RecyclerView.ViewHolder(binding.root) {
 
-    fun bind(model: List<LastEpisode>, context: Activity, position: Int) {
+    fun bind(model: List<LastEpisode>, context: Activity, position: Int , listener: LessonsAdapter.LessonsClickListener) {
+        this.listener = listener
         binding.title.text = model[position].title
         val time = model[position].time + " دقيقة  "
         binding.time.text = time
         initTabLayout(context, model, position)
-
     }
 
     private fun initTabLayout(context: Activity, model: List<LastEpisode> , position : Int) {
@@ -36,7 +36,7 @@ class LessonsViewHolder(
         binding.tabLayout.tabGravity = TabLayout.GRAVITY_FILL
         val fragmentManager: FragmentManager =
             (context as FragmentActivity).supportFragmentManager
-        binding.viewPager.adapter = LessonsPagerAdapter(fragmentManager, model, position)
+        binding.viewPager.adapter = LessonsPagerAdapter(fragmentManager, model, position , listener)
 
         binding.viewPager.currentItem = 0
         binding.viewPager.addOnPageChangeListener(TabLayout.TabLayoutOnPageChangeListener(binding.tabLayout))
@@ -44,7 +44,6 @@ class LessonsViewHolder(
             override fun onTabSelected(tab: TabLayout.Tab) {
                 binding.viewPager.currentItem = tab.position
             }
-
             override fun onTabUnselected(tab: TabLayout.Tab) {}
             override fun onTabReselected(tab: TabLayout.Tab) {}
         })

@@ -11,6 +11,10 @@
     <string name="create_account">إنشاء حساب</string>
     <string name="google_login">تسجيل الدخول عبر جوجل</string>
     <string name="test">888888</string>
+    <string name="Obtaining_certificate">الحصول على الشهادة</string>
+    <string name="previous_lesson">الدرس السابق</string>
+    <string name="ask">اسال</string>
+    <string name="no_questions">لا يوجد اسئلة حول هذا الدرس</string>
     <string name="follow">follow in</string>
     <string name="next_lesson">الدرس التالي</string>
     <string name="questions_about_lesson">أسئلة حول الدرس</string>

@@ -14,7 +14,9 @@ import com.raqamyat.ecommerceclub.ui.lessons.LessonsAdapter
 import com.raqamyat.ecommerceclub.ui.lessons.adapters.LessonsNumberAdapter
 
 
-class LessonsTabFragment(private val model: List<LastEpisode>) : Fragment(),
+class LessonsTabFragment(private val model: List<LastEpisode> ,
+                         private var listener: LessonsAdapter.LessonsClickListener,
+                         private var position: Int) : Fragment(),
     LessonsNumberAdapter.LessonsNumberClickListener {
     private lateinit var binding : LessonsTabFragmentBinding;
 
@@ -40,6 +42,6 @@ class LessonsTabFragment(private val model: List<LastEpisode>) : Fragment(),
     }
 
     override fun onLessonClicked(position: Int) {
-        TODO("Not yet implemented")
+        listener.onNextLessonClicked(position)
     }
 }
