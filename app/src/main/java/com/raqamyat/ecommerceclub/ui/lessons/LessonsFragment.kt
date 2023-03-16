@@ -68,8 +68,8 @@ class LessonsFragment : BaseFragment(), LessonsAdapter.LessonsClickListener {
                 lifecycleScope.launch {
                     dismissLoading()
                     initAdapter(it!!.data)
-                    delay(4000)
                     lastEpisode = it.data
+                    delay(2000)
                     try {
                         youTubePlayer.cueVideo(it.data[0].video_id, 0F)
 
@@ -84,10 +84,10 @@ class LessonsFragment : BaseFragment(), LessonsAdapter.LessonsClickListener {
     private fun initAdapter(model: List<LastEpisode>) {
         val adapter = LessonsAdapter(model, requireActivity(), this)
         binding.recycler.adapter = adapter
-//         linearLayoutManager  = object : LinearLayoutManager(requireActivity()) {
-//            override fun canScrollVertically() = false
-//        }
-        linearLayoutManager  = LinearLayoutManager(requireActivity(), LinearLayoutManager.HORIZONTAL , false)
+         linearLayoutManager  = object : LinearLayoutManager(requireActivity()) {
+            override fun canScrollVertically() = false
+        }
+//        linearLayoutManager  = LinearLayoutManager(requireActivity(), LinearLayoutManager.HORIZONTAL , false)
         binding.recycler.layoutManager =linearLayoutManager
     }
 
@@ -136,7 +136,17 @@ class LessonsFragment : BaseFragment(), LessonsAdapter.LessonsClickListener {
 
     override fun onNextLessonClicked(position: Int) {
         Log.d("TAG", "onNextLessonClicked: $position")
-        youTubePlayer.cueVideo(lastEpisode[position+1].video_id, 0F)
-        linearLayoutManager.scrollToPositionWithOffset(position+1, 0);
+        if (lastEpisode[position+1].status == "open"){
+            youTubePlayer.cueVideo(lastEpisode[position+1].video_id, 0F)
+            linearLayoutManager.scrollToPositionWithOffset(position+1, 0);
+        }else {
+            showErrorDialog("يجب اكمال الدرس اولا")
+        }
+
+    }
+
+    override fun onBackLessonClicked(position: Int) {
+        youTubePlayer.cueVideo(lastEpisode[position-1].video_id, 0F)
+        linearLayoutManager.scrollToPositionWithOffset(position-1, 0);
     }
 }

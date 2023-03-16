@@ -1,6 +1,7 @@
 package com.raqamyat.ecommerceclub.ui.lessons.adapters
 
 import android.app.Activity
+import androidx.core.content.ContextCompat
 import androidx.fragment.app.FragmentActivity
 import androidx.fragment.app.FragmentManager
 import androidx.recyclerview.widget.RecyclerView
@@ -20,6 +21,15 @@ class LessonsNumberViewHolder(
 
     fun bind(model: LastEpisode, context: Activity, position: Int) {
         binding.title.text = model.title
+        if (model.status == "open"){
+            binding.lock.setImageDrawable(ContextCompat.getDrawable(context, R.drawable.icon_material_lock_open))
+        }else if (model.status == "locked"){
+            binding.lock.setImageDrawable(ContextCompat.getDrawable(context, R.drawable.icon_material_lock_outline3))
+            binding.title.setTextColor(ContextCompat.getColor(context, R.color.text_color_gray));
+        }else{
+            binding.lock.setImageDrawable(ContextCompat.getDrawable(context, R.drawable.checkmark_circle_icon))
+        }
+
         binding.itemView.setOnClickListener{
             listener.onLessonClicked(position -1)
         }

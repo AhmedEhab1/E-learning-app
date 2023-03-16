@@ -26,6 +26,7 @@ class LessonsViewHolder(
     }
 
     private fun initTabLayout(context: Activity, model: List<LastEpisode> , position : Int) {
+        binding.tabLayout.id = binding.tabLayout.id+position
         binding.tabLayout.addTab(
             binding.tabLayout.newTab().setText(context.getString(R.string.about_lesson))
         )
@@ -36,6 +37,7 @@ class LessonsViewHolder(
         binding.tabLayout.tabGravity = TabLayout.GRAVITY_FILL
         val fragmentManager: FragmentManager =
             (context as FragmentActivity).supportFragmentManager
+        binding.viewPager.id = binding.viewPager.id+position
         binding.viewPager.adapter = LessonsPagerAdapter(fragmentManager, model, position , listener)
 
         binding.viewPager.currentItem = 0

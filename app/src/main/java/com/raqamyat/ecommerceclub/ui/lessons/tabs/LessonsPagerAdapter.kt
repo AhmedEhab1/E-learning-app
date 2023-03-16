@@ -21,7 +21,7 @@ class LessonsPagerAdapter(
     override fun getItem(position: Int): Fragment {
         when (position) {
             0 -> {
-                return AboutLessonFragment(data[positionAdapter], listener , positionAdapter)
+                return AboutLessonFragment(data, listener , positionAdapter)
             }
             1 -> {
                 return LessonsTabFragment(data, listener , positionAdapter)
@@ -30,7 +30,7 @@ class LessonsPagerAdapter(
                 return LessonsQuestionsTab(data[positionAdapter].questions)
             }
             else -> {
-                return AboutLessonFragment(data[positionAdapter], listener , positionAdapter)
+                return AboutLessonFragment(data, listener , positionAdapter)
             }
         }
     }

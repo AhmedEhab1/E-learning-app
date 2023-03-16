@@ -17,7 +17,8 @@ import java.text.FieldPosition
 
 
 class AboutLessonFragment(
-    private val model: LastEpisode, private var listener: LessonsAdapter.LessonsClickListener,
+    private val model: List<LastEpisode>,
+    private var listener: LessonsAdapter.LessonsClickListener,
     private var position: Int
 ) : Fragment() {
     private lateinit var binding: FragmentAboutLessonBinding;
@@ -35,13 +36,13 @@ class AboutLessonFragment(
     }
 
     private fun init() {
-        binding.description.text = model.description
-        binding.name.text = model.speaker.name
-        binding.title.text = model.speaker.title
+        binding.description.text = model[position].description
+        binding.name.text = model[position].speaker.name
+        binding.title.text = model[position].speaker.title
         binding.image.clipToOutline = true
         ImageHelper().loadImage(
             requireActivity(),
-            model.speaker.image,
+            model[position].speaker.image,
             R.drawable.profile_icon,
             binding.image
         )
@@ -53,7 +54,7 @@ class AboutLessonFragment(
     private fun openLinkedIn() {
         binding.linkIn.setOnClickListener {
             val i = Intent(Intent.ACTION_VIEW)
-            i.data = Uri.parse(model.speaker.linkedin)
+            i.data = Uri.parse(model[position].speaker.linkedin)
             startActivity(i)
         }
     }
@@ -62,12 +63,19 @@ class AboutLessonFragment(
         binding.nextLesson.setOnClickListener {
             listener.onNextLessonClicked(position)
         }
+        binding.previewsLesson.setOnClickListener {
+            listener.onBackLessonClicked(position)
+        }
     }
 
     private fun btnVisibility() {
         if (position == 0) {
             binding.previewsLesson.visibility= View.GONE
             binding.obtainingCertificate.visibility= View.GONE
+        } else if (position == model.size -1){
+            binding.nextLesson.visibility= View.GONE
+            binding.obtainingCertificate.visibility= View.VISIBLE
+            binding.previewsLesson.visibility= View.VISIBLE
         }else if (position > 0){
             binding.obtainingCertificate.visibility= View.GONE
             binding.previewsLesson.visibility= View.VISIBLE

@@ -37,6 +37,13 @@ class LessonsNumberAdapter(private val data: List<LastEpisode>, private val cont
         fun onLessonClicked(position: Int)
     }
 
+    override fun getItemViewType(position: Int): Int {
+        return position
+    }
+
+    override fun getItemId(position: Int): Long {
+        return position.toLong()
+    }
 }
 
 

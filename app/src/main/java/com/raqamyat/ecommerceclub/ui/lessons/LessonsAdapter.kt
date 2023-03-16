@@ -26,6 +26,7 @@ class LessonsAdapter(private val data: List<LastEpisode>, private val context: A
 
     interface LessonsClickListener {
         fun onNextLessonClicked(position: Int)
+        fun onBackLessonClicked(position: Int)
     }
 
     override fun getItemViewType(position: Int): Int {
