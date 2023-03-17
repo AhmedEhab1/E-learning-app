@@ -19,6 +19,7 @@ class LessonsViewModel @Inject constructor(
     private val repository: HomeRepository
 ) : ViewModel() {
     val response: MutableLiveData<APIResponse<List<LastEpisode>>?> = MutableLiveData()
+    val updateLessonResponse: MutableLiveData<APIResponse<LastEpisode>?> = MutableLiveData()
     var errorMessage: MutableLiveData<String?> = MutableLiveData()
 
     fun getLessons() {
@@ -26,6 +27,17 @@ class LessonsViewModel @Inject constructor(
             try {
                 response.value = repository.getLessons()
             } catch (e: Throwable) {
+                Log.e("ViewModelError", e.toString())
+                errorMessage.value = isHttpException(e)
+            }
+        }
+    }
+
+    fun updateLesson(request: UpdateLessonParams){
+        viewModelScope.launch{
+            try {
+                updateLessonResponse.value = repository.updateLesson(request)
+            } catch (e: Throwable){
                 Log.e("ViewModelError", e.toString())
                 errorMessage.value = isHttpException(e)
             }

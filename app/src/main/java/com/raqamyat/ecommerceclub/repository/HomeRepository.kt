@@ -14,4 +14,8 @@ class HomeRepository@Inject constructor (private val  apiService: ApiService) {
        return apiService.getLessons()
     }
 
+    suspend fun updateLesson(request: UpdateLessonParams): APIResponse<LastEpisode> {
+        return apiService.updateLesson(request)
+    }
+
 }

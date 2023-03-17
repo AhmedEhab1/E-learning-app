@@ -8,8 +8,9 @@ import android.view.View.OnTouchListener
 import android.view.ViewGroup
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
+import androidx.navigation.Navigation
 import androidx.recyclerview.widget.LinearLayoutManager
-import com.google.android.youtube.player.YouTubePlayer
+import com.pierfrancescosoffritti.androidyoutubeplayer.core.player.PlayerConstants
 import com.pierfrancescosoffritti.androidyoutubeplayer.core.player.listeners.AbstractYouTubePlayerListener
 import com.pierfrancescosoffritti.androidyoutubeplayer.core.player.listeners.YouTubePlayerListener
 import com.pierfrancescosoffritti.androidyoutubeplayer.core.player.options.IFramePlayerOptions
@@ -19,6 +20,8 @@ import com.raqamyat.ecommerceclub.R
 import com.raqamyat.ecommerceclub.base.BaseFragment
 import com.raqamyat.ecommerceclub.databinding.LessonsFragmentBinding
 import com.raqamyat.ecommerceclub.entities.LastEpisode
+import com.raqamyat.ecommerceclub.entities.UpdateLessonParams
+import com.raqamyat.ecommerceclub.ui.auth.UserData
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
@@ -29,10 +32,10 @@ class LessonsFragment : BaseFragment(), LessonsAdapter.LessonsClickListener {
     private lateinit var binding: LessonsFragmentBinding
     private val viewModel: LessonsViewModel by viewModels()
     private lateinit var youTubePlayer: com.pierfrancescosoffritti.androidyoutubeplayer.core.player.YouTubePlayer
-    var onInitializedListener: YouTubePlayer.OnInitializedListener? = null
-    var apiKey = "AIzaSyA4czZfjxZsJCXnTOxANReSrL_6su6PmE4"
     private lateinit var  linearLayoutManager : LinearLayoutManager
     private lateinit var lastEpisode : List<LastEpisode>
+    private lateinit var currentSecond :Any
+    private var episode_id :Int = 0
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
@@ -52,6 +55,7 @@ class LessonsFragment : BaseFragment(), LessonsAdapter.LessonsClickListener {
         viewModel.getLessons()
         errorMessage()
         requestResponse()
+        updateLessonResponse()
     }
 
     private fun errorMessage() {
@@ -69,6 +73,7 @@ class LessonsFragment : BaseFragment(), LessonsAdapter.LessonsClickListener {
                     dismissLoading()
                     initAdapter(it!!.data)
                     lastEpisode = it.data
+                    episode_id = lastEpisode[0].id
                     delay(2000)
                     try {
                         youTubePlayer.cueVideo(it.data[0].video_id, 0F)
@@ -98,6 +103,30 @@ class LessonsFragment : BaseFragment(), LessonsAdapter.LessonsClickListener {
             false // We set it to false because we init it manually
 
         val listener: YouTubePlayerListener = object : AbstractYouTubePlayerListener() {
+            override fun onStateChange(
+                youTubePlayer: com.pierfrancescosoffritti.androidyoutubeplayer.core.player.YouTubePlayer,
+                state: PlayerConstants.PlayerState
+            ) {
+                super.onStateChange(youTubePlayer, state)
+                Log.d("lessonFragment", "onStateChange: $state")
+                dismissLoading()
+                if (state.toString() =="PAUSED"){
+                    showLoading()
+                    viewModel.updateLesson(UpdateLessonParams(time = currentSecond , episode_id = episode_id))
+                }else if (state.toString() =="ENDED"){
+                    showLoading()
+                    viewModel.updateLesson(UpdateLessonParams(status = "done" , episode_id = episode_id))
+                }
+            }
+
+            override fun onCurrentSecond(
+                youTubePlayer: com.pierfrancescosoffritti.androidyoutubeplayer.core.player.YouTubePlayer,
+                second: Float
+            ) {
+                super.onCurrentSecond(youTubePlayer, second)
+                currentSecond = second
+            }
+
             override fun onReady(youTubePlayer1: com.pierfrancescosoffritti.androidyoutubeplayer.core.player.YouTubePlayer) {
                 youTubePlayer = youTubePlayer1
                 // We're using pre-made custom ui
@@ -107,6 +136,7 @@ class LessonsFragment : BaseFragment(), LessonsAdapter.LessonsClickListener {
 
                 // When the video is in full-screen, cover the entire screen
                 defaultPlayerUiController.setFullScreenButtonClickListener {
+                    Log.d("youtube", "onReady: ")
                     if (thirdPartyYouTubePlayerView.isFullScreen()) {
                         thirdPartyYouTubePlayerView.exitFullScreen()
                         requireActivity().window.decorView.systemUiVisibility =
@@ -124,29 +154,37 @@ class LessonsFragment : BaseFragment(), LessonsAdapter.LessonsClickListener {
                 thirdPartyYouTubePlayerView.setCustomPlayerUi(defaultPlayerUiController.rootView)
 //                val videoId = "nhEYtMGCjzI"
 //                youTubePlayer.cueVideo(videoId, 0F)
+                youTubePlayer.addListener(this)
 
             }
         }
         // Disable iFrame UI
         val options: IFramePlayerOptions = IFramePlayerOptions.Builder().controls(0).build()
         thirdPartyYouTubePlayerView.initialize(listener, options)
-//        listener.on()
-
+        thirdPartyYouTubePlayerView.onFinishTemporaryDetach()
     }
 
     override fun onNextLessonClicked(position: Int) {
         Log.d("TAG", "onNextLessonClicked: $position")
         if (lastEpisode[position+1].status == "open"){
+            episode_id = lastEpisode[position+1].id
             youTubePlayer.cueVideo(lastEpisode[position+1].video_id, 0F)
             linearLayoutManager.scrollToPositionWithOffset(position+1, 0);
         }else {
             showErrorDialog("يجب اكمال الدرس اولا")
         }
-
     }
 
     override fun onBackLessonClicked(position: Int) {
         youTubePlayer.cueVideo(lastEpisode[position-1].video_id, 0F)
         linearLayoutManager.scrollToPositionWithOffset(position-1, 0);
+    }
+
+    private fun updateLessonResponse() {
+        lifecycleScope.launch {
+            viewModel.updateLessonResponse.observe(viewLifecycleOwner) {
+                dismissLoading()
+            }
+        }
     }
 }

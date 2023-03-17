@@ -28,6 +28,9 @@ interface ApiService {
     @POST("forget-password/confirm-code")
     suspend fun confirmEmailCode(@Body request: ForgetPasswordModel?) : APIResponse<ForgetPasswordModel>
 
+    @POST("lessons/update")
+    suspend fun updateLesson(@Body request: UpdateLessonParams?) : APIResponse<LastEpisode>
+
     @POST("forget-password/rest-password")
     suspend fun resetPassword(@Body request: ResetPasswordModel?) : APIResponse<Any>
 

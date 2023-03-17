@@ -48,7 +48,7 @@
             </LinearLayout>
 
             <TextView
-                android:id="@+id/textView4"
+                android:id="@+id/userComment"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:textColor="#7D7D7D"
@@ -57,7 +57,7 @@
                 tools:text="لوريم ايبسوم دولار سيت أميت ,كونسيكتيتور أدايبا يسكينج أليايت,سيت دو أيوسمود تيمبور نكايديديونتيوت لابوري ات دولار ماجنا أليكيوا . يوت انيم أد مينيم فينايم,كيواس نوستريد كسير سيتاشن يللأمكو لابورأس نيسي يت أليكيوب أكس أيا كوممودو كونسيكيوات" />
 
             <TextView
-                android:id="@+id/textView10"
+                android:id="@+id/userCommentDate"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="end"

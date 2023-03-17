@@ -4,9 +4,11 @@ import android.content.Intent
 import android.net.Uri
 import android.opengl.Visibility
 import android.os.Bundle
+import android.text.Html
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.core.text.parseAsHtml
 import androidx.fragment.app.Fragment
 import com.raqamyat.ecommerceclub.R
 import com.raqamyat.ecommerceclub.databinding.FragmentAboutLessonBinding
@@ -36,7 +38,7 @@ class AboutLessonFragment(
     }
 
     private fun init() {
-        binding.description.text = model[position].description
+        binding.description.text = model[position].description.parseAsHtml()
         binding.name.text = model[position].speaker.name
         binding.title.text = model[position].speaker.title
         binding.image.clipToOutline = true

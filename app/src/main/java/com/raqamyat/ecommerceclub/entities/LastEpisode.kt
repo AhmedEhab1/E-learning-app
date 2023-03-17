@@ -4,7 +4,7 @@ data class LastEpisode(
     val description: String,
     val `file`: Any,
     val id: Int,
-    val last_stopped_time: Int,
+    val last_stopped_time: Float,
     val questions: List<Question>,
     val speaker: Speaker,
     val status: String,
