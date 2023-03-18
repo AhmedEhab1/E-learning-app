@@ -30,7 +30,7 @@
             app:popUpToInclusive="true"/>
         <action
             android:id="@+id/action_splashFragment_to_lessonsFragment"
-            app:destination="@id/lessonsFragment" />
+            app:destination="@id/examFragment" />
     </fragment>
     <fragment
         android:id="@+id/onboardingFragment"
@@ -192,7 +192,7 @@
     </fragment>
     <fragment
         android:id="@+id/examFragment"
-        android:name="com.raqamyat.ecommerceclub.ExamFragment"
+        android:name="com.raqamyat.ecommerceclub.ui.exam.ExamFragment"
         android:label="exam_fragment"
         tools:layout="@layout/exam_fragment" />
 </navigation>

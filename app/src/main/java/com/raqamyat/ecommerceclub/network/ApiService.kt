@@ -40,6 +40,9 @@ interface ApiService {
     @GET("home")
     suspend fun getHome() : APIResponse<HomeModel>
 
+    @GET("exams")
+    suspend fun getExam() : APIResponse<ExamResponse>
+
     @GET("lessons")
     suspend fun getLessons() : APIResponse<List<LastEpisode>>
 
