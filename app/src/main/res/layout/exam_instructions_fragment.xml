@@ -1,0 +1,143 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:background="@drawable/splash_bg"
+    android:layout_height="match_parent"
+    tools:context=".ui.exam.ExamInstructions">
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical" >
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="@dimen/margin_start_end"
+                android:layout_marginTop="@dimen/margin_top"
+                android:layout_marginEnd="@dimen/margin_start_end"
+                android:layout_marginBottom="20dp"
+                android:gravity="center"
+                android:orientation="horizontal">
+
+                <include
+                    layout="@layout/back_view"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content" />
+
+                <TextView
+                    android:id="@+id/textView2"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:fontFamily="@font/janna_bold"
+                    android:gravity="center"
+                    android:text="@string/about_exam"
+                    android:textSize="15sp" />
+
+                <include
+                    layout="@layout/profile_icon"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content" />
+
+            </LinearLayout>
+
+            <androidx.cardview.widget.CardView
+                android:layout_width="match_parent"
+                app:cardCornerRadius="50dp"
+                android:background="@color/white"
+                app:cardBackgroundColor="@color/white"
+                app:cardElevation="1dp"
+                android:layout_margin="@dimen/margin_start_end"
+                android:layout_height="match_parent" >
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+
+                    android:layout_margin="@dimen/margin_start_end"
+                    android:orientation="vertical">
+
+                    <ImageView
+                        android:id="@+id/imageView11"
+                        android:layout_width="wrap_content"
+                        android:layout_gravity="center"
+                        android:layout_marginTop="20dp"
+                        android:layout_height="wrap_content"
+                        android:src="@drawable/exam_instructions_image" />
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="40dp"
+                        android:text="زمن الإختبار 15 دقيقة"
+                        android:textSize="19sp"
+                        android:fontFamily="@font/janna_bold"
+                        android:drawablePadding="10dp"
+                        app:drawableStartCompat="@drawable/baseline_check_24" />
+
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="5dp"
+                        android:text="يتكون من 20 سؤال"
+                        android:textAlignment="viewStart"
+                        android:textSize="19sp"
+                        android:fontFamily="@font/janna_bold"
+                        android:drawablePadding="10dp"
+                        app:drawableStartCompat="@drawable/baseline_check_24" />
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:textAlignment="viewStart"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="5dp"
+                        android:text="الحد الأدنى للنجاح 70 %"
+                        android:textSize="19sp"
+                        android:fontFamily="@font/janna_bold"
+                        android:drawablePadding="10dp"
+                        app:drawableStartCompat="@drawable/baseline_check_24" />
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="5dp"
+                        android:text="يمكن للمتدرب التقدم للحصول على الشهادة 3 مرات فقط"
+                        android:textSize="19sp"
+                        android:textAlignment="viewStart"
+                        android:fontFamily="@font/janna_bold"
+                        android:drawablePadding="10dp"
+                        app:drawableStartCompat="@drawable/baseline_check_24" />
+
+                    <com.google.android.material.button.MaterialButton
+                        android:id="@+id/startExam"
+                        android:layout_width="match_parent"
+                        android:layout_height="@dimen/button_height"
+                        android:gravity="center"
+                        android:layout_marginTop="20dp"
+                        android:insetTop="0dp"
+                        android:insetBottom="0dp"
+                        android:minWidth="83dp"
+                        android:minHeight="36dp"
+                        android:layout_marginBottom="10dp"
+                        android:textSize="18sp"
+                        android:text="@string/start_exam"
+                        android:textAllCaps="false"
+                        android:textColor="@color/white"
+                        android:textStyle="bold"
+                        app:backgroundTint="@color/purple"
+                        app:cornerRadius="35dp"
+                        app:iconGravity="textStart" />
+
+                </LinearLayout>
+            </androidx.cardview.widget.CardView>
+        </LinearLayout>
+    </ScrollView>
+</FrameLayout>

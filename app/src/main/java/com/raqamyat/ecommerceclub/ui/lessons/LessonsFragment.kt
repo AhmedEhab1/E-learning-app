@@ -32,20 +32,27 @@ class LessonsFragment : BaseFragment(), LessonsAdapter.LessonsClickListener {
     private lateinit var binding: LessonsFragmentBinding
     private val viewModel: LessonsViewModel by viewModels()
     private lateinit var youTubePlayer: com.pierfrancescosoffritti.androidyoutubeplayer.core.player.YouTubePlayer
-    private lateinit var  linearLayoutManager : LinearLayoutManager
-    private lateinit var lastEpisode : List<LastEpisode>
-    private lateinit var currentSecond :Any
-    private var episode_id :Int = 0
+    private lateinit var linearLayoutManager: LinearLayoutManager
+    private lateinit var lastEpisode: List<LastEpisode>
+    private lateinit var currentSecond: Any
+    private var episode_id: Int = 0
+    private var videoId: String = ""
+    private var shouldRefreshOnResume = false
+
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        init()
+        if (!shouldRefreshOnResume) {
+            init()
+        }
     }
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?
     ): View? {
-        binding = LessonsFragmentBinding.inflate(inflater, container, false)
+        if (!shouldRefreshOnResume) {
+            binding = LessonsFragmentBinding.inflate(inflater, container, false)
+        }
         return binding.root
     }
 
@@ -74,13 +81,7 @@ class LessonsFragment : BaseFragment(), LessonsAdapter.LessonsClickListener {
                     initAdapter(it!!.data)
                     lastEpisode = it.data
                     episode_id = lastEpisode[0].id
-                    delay(2000)
-                    try {
-                        youTubePlayer.cueVideo(it.data[0].video_id, 0F)
-
-                    }catch (e : Exception){
-                        Log.e("error", "requestResponse: ",e )
-                    }
+                    videoId = it.data[0].video_id
                 }
             }
         }
@@ -89,11 +90,11 @@ class LessonsFragment : BaseFragment(), LessonsAdapter.LessonsClickListener {
     private fun initAdapter(model: List<LastEpisode>) {
         val adapter = LessonsAdapter(model, requireActivity(), this)
         binding.recycler.adapter = adapter
-         linearLayoutManager  = object : LinearLayoutManager(requireActivity()) {
+        linearLayoutManager = object : LinearLayoutManager(requireActivity()) {
             override fun canScrollVertically() = false
         }
 //        linearLayoutManager  = LinearLayoutManager(requireActivity(), LinearLayoutManager.HORIZONTAL , false)
-        binding.recycler.layoutManager =linearLayoutManager
+        binding.recycler.layoutManager = linearLayoutManager
     }
 
     fun youtube() {
@@ -110,12 +111,22 @@ class LessonsFragment : BaseFragment(), LessonsAdapter.LessonsClickListener {
                 super.onStateChange(youTubePlayer, state)
                 Log.d("lessonFragment", "onStateChange: $state")
                 dismissLoading()
-                if (state.toString() =="PAUSED"){
+                if (state.toString() == "PAUSED") {
                     showLoading()
-                    viewModel.updateLesson(UpdateLessonParams(time = currentSecond , episode_id = episode_id))
-                }else if (state.toString() =="ENDED"){
+                    viewModel.updateLesson(
+                        UpdateLessonParams(
+                            time = currentSecond,
+                            episode_id = episode_id
+                        )
+                    )
+                } else if (state.toString() == "ENDED") {
                     showLoading()
-                    viewModel.updateLesson(UpdateLessonParams(status = "done" , episode_id = episode_id))
+                    viewModel.updateLesson(
+                        UpdateLessonParams(
+                            status = "done",
+                            episode_id = episode_id
+                        )
+                    )
                 }
             }
 
@@ -152,8 +163,12 @@ class LessonsFragment : BaseFragment(), LessonsAdapter.LessonsClickListener {
                     }
                 }
                 thirdPartyYouTubePlayerView.setCustomPlayerUi(defaultPlayerUiController.rootView)
-//                val videoId = "nhEYtMGCjzI"
-//                youTubePlayer.cueVideo(videoId, 0F)
+                try {
+                    youTubePlayer.cueVideo(videoId, 0F)
+
+                } catch (e: Exception) {
+                    Log.e("error", "requestResponse: ", e)
+                }
                 youTubePlayer.addListener(this)
 
             }
@@ -166,18 +181,18 @@ class LessonsFragment : BaseFragment(), LessonsAdapter.LessonsClickListener {
 
     override fun onNextLessonClicked(position: Int) {
         Log.d("TAG", "onNextLessonClicked: $position")
-        if (lastEpisode[position+1].status == "open"){
-            episode_id = lastEpisode[position+1].id
-            youTubePlayer.cueVideo(lastEpisode[position+1].video_id, 0F)
-            linearLayoutManager.scrollToPositionWithOffset(position+1, 0);
-        }else {
+        if (lastEpisode[position + 1].status == "open") {
+            episode_id = lastEpisode[position + 1].id
+            youTubePlayer.cueVideo(lastEpisode[position + 1].video_id, 0F)
+            linearLayoutManager.scrollToPositionWithOffset(position + 1, 0);
+        } else {
             showErrorDialog("يجب اكمال الدرس اولا")
         }
     }
 
     override fun onBackLessonClicked(position: Int) {
-        youTubePlayer.cueVideo(lastEpisode[position-1].video_id, 0F)
-        linearLayoutManager.scrollToPositionWithOffset(position-1, 0);
+        youTubePlayer.cueVideo(lastEpisode[position - 1].video_id, 0F)
+        linearLayoutManager.scrollToPositionWithOffset(position - 1, 0);
     }
 
     private fun updateLessonResponse() {
@@ -186,5 +201,9 @@ class LessonsFragment : BaseFragment(), LessonsAdapter.LessonsClickListener {
                 dismissLoading()
             }
         }
+    }
+    override fun onPause() {
+        super.onPause()
+        shouldRefreshOnResume = true
     }
 }

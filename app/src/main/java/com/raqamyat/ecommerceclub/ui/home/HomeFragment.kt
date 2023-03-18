@@ -25,19 +25,25 @@ import kotlinx.coroutines.launch
 class HomeFragment : BaseFragment(), ArticlesAdapter.ArticlesClickListener {
     private lateinit var binding: HomeFragmentBinding
     private val viewModel: HomeViewModel by viewModels()
+    private var shouldRefreshOnResume = false
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        init()
+        if (!shouldRefreshOnResume) {
+            init()
+        }
     }
 
     override fun onCreateView(
-        inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
-        binding = HomeFragmentBinding.inflate(inflater, container, false)
+        inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?
+    ): View? {
+        if (!shouldRefreshOnResume) {
+            binding = HomeFragmentBinding.inflate(inflater, container, false)
+        }
         return binding.root
     }
 
-    private fun init(){
+    private fun init() {
         binding.userName.text = getPreferencesHelper().getString("name")
         errorMessage()
         getHome()
@@ -45,7 +51,7 @@ class HomeFragment : BaseFragment(), ArticlesAdapter.ArticlesClickListener {
         continueStudying()
     }
 
-    private fun getHome(){
+    private fun getHome() {
         showLoading()
         viewModel.getHome()
     }
@@ -62,13 +68,13 @@ class HomeFragment : BaseFragment(), ArticlesAdapter.ArticlesClickListener {
         lifecycleScope.launch {
             viewModel.response.observe(viewLifecycleOwner) {
                 dismissLoading()
-               val model : HomeModel? = it?.data
+                val model: HomeModel? = it?.data
                 initData(model!!)
             }
         }
     }
 
-    private fun initData(model : HomeModel){
+    private fun initData(model: HomeModel) {
         binding.watchedEpisodesCount.text = model.watched_episodes_count
         binding.title.text = model.last_episode?.title
 
@@ -84,16 +90,21 @@ class HomeFragment : BaseFragment(), ArticlesAdapter.ArticlesClickListener {
     override fun onArticlesItemClick(position: Int) {
     }
 
-    private fun continueStudying(){
-        binding.continueStudying.setOnClickListener{
+    private fun continueStudying() {
+        binding.continueStudying.setOnClickListener {
             Navigation.findNavController(requireView()).navigate(
                 R.id.action_homeFragment_to_lessonsFragment
             )
         }
-        binding.continueStudying2.setOnClickListener{
+        binding.continueStudying2.setOnClickListener {
             Navigation.findNavController(requireView()).navigate(
                 R.id.action_homeFragment_to_lessonsFragment
             )
         }
+    }
+
+    override fun onPause() {
+        super.onPause()
+        shouldRefreshOnResume = true
     }
 }

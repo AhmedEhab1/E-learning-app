@@ -70,7 +70,7 @@
         </FrameLayout>
 
         <com.google.android.material.tabs.TabLayout
-            android:id="@+id/tabLayout"
+            android:id="@+id/profileTabLayout"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             app:tabGravity="fill"
@@ -78,7 +78,7 @@
             app:tabMode="fixed" />
 
         <androidx.viewpager.widget.ViewPager
-            android:id="@+id/viewPager"
+            android:id="@+id/profileViewPager"
             android:layout_width="match_parent"
             android:layoutDirection="locale"
             android:layout_height="wrap_content"

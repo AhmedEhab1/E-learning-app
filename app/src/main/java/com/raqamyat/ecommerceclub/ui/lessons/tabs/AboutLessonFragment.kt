@@ -10,6 +10,7 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.core.text.parseAsHtml
 import androidx.fragment.app.Fragment
+import androidx.navigation.Navigation
 import com.raqamyat.ecommerceclub.R
 import com.raqamyat.ecommerceclub.databinding.FragmentAboutLessonBinding
 import com.raqamyat.ecommerceclub.entities.LastEpisode
@@ -67,6 +68,11 @@ class AboutLessonFragment(
         }
         binding.previewsLesson.setOnClickListener {
             listener.onBackLessonClicked(position)
+        }
+        binding.obtainingCertificate.setOnClickListener {
+            Navigation.findNavController(requireView()).navigate(
+                R.id.action_lessonsFragment_to_examInstructions
+            )
         }
     }
 

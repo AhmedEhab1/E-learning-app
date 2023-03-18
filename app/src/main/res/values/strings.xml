@@ -11,6 +11,16 @@
     <string name="create_account">إنشاء حساب</string>
     <string name="google_login">تسجيل الدخول عبر جوجل</string>
     <string name="test">888888</string>
+    <string name="exam_result">نتيجة الإختبار</string>
+    <string name="previous_question">السؤال السابق</string>
+    <string name="next_question">السؤال التالي</string>
+    <string name="time_left">الوقت المتبقي</string>
+    <string name="exam_title">إمتحان الحصول على الشهادة</string>
+    <string name="start_exam">ابدأ الإختبار الآن</string>
+    <string name="lesson_title">مبادئ التجارة الإلكترونية</string>
+    <string name="about_exam">نبذه عن الإختبار</string>
+    <string name="send">إرسال</string>
+    <string name="write_question">اكتب سؤالك</string>
     <string name="Obtaining_certificate">الحصول على الشهادة</string>
     <string name="previous_lesson">الدرس السابق</string>
     <string name="ask">اسال</string>

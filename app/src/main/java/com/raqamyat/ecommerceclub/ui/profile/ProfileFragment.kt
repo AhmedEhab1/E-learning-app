@@ -51,21 +51,21 @@ class ProfileFragment : BaseFragment() {
     }
 
     private fun initTabLayout() {
-        binding.tabLayout.addTab(
-            binding.tabLayout.newTab().setText(getString(R.string.account_info))
+        binding.profileTabLayout.addTab(
+            binding.profileTabLayout.newTab().setText(getString(R.string.account_info))
         )
-        binding.tabLayout.addTab(binding.tabLayout.newTab().setText(getString(R.string.password)))
-        binding.tabLayout.addTab(
-            binding.tabLayout.newTab().setText(getString(R.string.certificates))
+        binding.profileTabLayout.addTab(binding.profileTabLayout.newTab().setText(getString(R.string.password)))
+        binding.profileTabLayout.addTab(
+            binding.profileTabLayout.newTab().setText(getString(R.string.certificates))
         )
-        binding.tabLayout.tabGravity = TabLayout.GRAVITY_FILL
+        binding.profileTabLayout.tabGravity = TabLayout.GRAVITY_FILL
 
-        binding.viewPager.adapter = ProfilePagerAdapter(requireActivity().supportFragmentManager)
-        binding.viewPager.currentItem = 0
-        binding.viewPager.addOnPageChangeListener(TabLayout.TabLayoutOnPageChangeListener(binding.tabLayout))
-        binding.tabLayout.addOnTabSelectedListener(object : TabLayout.OnTabSelectedListener {
+        binding.profileViewPager.adapter = ProfilePagerAdapter(requireActivity().supportFragmentManager)
+        binding.profileViewPager.currentItem = 0
+        binding.profileViewPager.addOnPageChangeListener(TabLayout.TabLayoutOnPageChangeListener(binding.profileTabLayout))
+        binding.profileTabLayout.addOnTabSelectedListener(object : TabLayout.OnTabSelectedListener {
             override fun onTabSelected(tab: TabLayout.Tab) {
-                binding.viewPager.currentItem = tab.position
+                binding.profileViewPager.currentItem = tab.position
             }
 
             override fun onTabUnselected(tab: TabLayout.Tab) {}
