@@ -19,12 +19,24 @@ class ExamViewModel @Inject constructor(
     private val repository: HomeRepository
 ) : ViewModel() {
     val response: MutableLiveData<APIResponse<ExamResponse>?> = MutableLiveData()
+    val examAnswersResponse: MutableLiveData<APIResponse<ExamAnswersResponse>?> = MutableLiveData()
     var errorMessage: MutableLiveData<String?> = MutableLiveData()
 
     fun getExam() {
         viewModelScope.launch {
             try {
                 response.value = repository.getExam()
+            } catch (e: Throwable) {
+                Log.e("ViewModelError", e.toString())
+                errorMessage.value = isHttpException(e)
+            }
+        }
+    }
+
+    fun examAnswers(request: List<AnswersRequest>) {
+        viewModelScope.launch {
+            try {
+                examAnswersResponse.value = repository.examAnswers(request)
             } catch (e: Throwable) {
                 Log.e("ViewModelError", e.toString())
                 errorMessage.value = isHttpException(e)

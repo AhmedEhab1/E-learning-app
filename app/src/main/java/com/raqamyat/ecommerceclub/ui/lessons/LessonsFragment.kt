@@ -30,11 +30,11 @@ import kotlinx.coroutines.launch
 @AndroidEntryPoint
 class LessonsFragment : BaseFragment(), LessonsAdapter.LessonsClickListener {
     private lateinit var binding: LessonsFragmentBinding
-    private val viewModel: LessonsViewModel by viewModels()
     private lateinit var youTubePlayer: com.pierfrancescosoffritti.androidyoutubeplayer.core.player.YouTubePlayer
     private lateinit var linearLayoutManager: LinearLayoutManager
     private lateinit var lastEpisode: List<LastEpisode>
     private lateinit var currentSecond: Any
+    private val viewModel: LessonsViewModel by viewModels()
     private var episode_id: Int = 0
     private var videoId: String = ""
     private var shouldRefreshOnResume = false

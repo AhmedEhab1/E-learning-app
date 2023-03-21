@@ -11,6 +11,16 @@
     <string name="create_account">إنشاء حساب</string>
     <string name="google_login">تسجيل الدخول عبر جوجل</string>
     <string name="test">888888</string>
+    <string name="get_certificate_now">احصل على الشهادة الأن</string>
+    <string name="request_another_try">طلب محاولة اخرى</string>
+    <string name="you_pass_the_exam">لقد نجحت في تجاوز الاختبار</string>
+    <string name="back">العودة</string>
+    <string name="ask_for_more_try">طلب محاولة استثنائية</string>
+    <string name="no_more_try">لم يتبقى أمامك محاولات لاعادة الاختبار</string>
+    <string name="num_of_wrong_answers">عدد الاجابات الخاطئة</string>
+    <string name="num_of_correct_answers">عدد الاجابات الصحيحة</string>
+    <string name="your_result">نتيجك</string>
+    <string name="exam_pass_fail">لم تنجح في تجاوز الاختبار</string>
     <string name="exam_result">نتيجة الإختبار</string>
     <string name="previous_question">السؤال السابق</string>
     <string name="next_question">السؤال التالي</string>

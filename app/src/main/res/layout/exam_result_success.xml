@@ -1,0 +1,228 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:background="@drawable/splash_bg"
+    tools:context=".ExamResultFailFragment">
+
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_marginBottom="20dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/margin_start_end"
+            android:layout_marginTop="@dimen/margin_top"
+            android:layout_marginEnd="@dimen/margin_start_end"
+            android:gravity="center"
+            android:orientation="horizontal">
+
+            <include
+                layout="@layout/back_view"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content" />
+
+            <TextView
+                android:id="@+id/textView2"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:fontFamily="@font/janna_bold"
+                android:gravity="center"
+                android:text="@string/exam_title"
+                android:textSize="15sp" />
+
+            <include
+                layout="@layout/profile_icon"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content" />
+
+        </LinearLayout>
+
+        <androidx.cardview.widget.CardView
+            android:layout_width="match_parent"
+            app:cardBackgroundColor="@color/white"
+            app:cardCornerRadius="50dp"
+            app:cardElevation="1dp"
+            android:layout_margin="@dimen/margin_start_end"
+            android:layout_height="wrap_content" >
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:orientation="vertical">
+
+                <com.airbnb.lottie.LottieAnimationView
+                    android:id="@+id/lottie"
+                    android:layout_width="match_parent"
+                    android:layout_height="220dp"
+                    app:lottie_autoPlay="true"
+                    app:lottie_repeatCount="2"
+                    android:visibility="visible"
+                    android:layout_gravity="center"
+                    app:lottie_fileName="exam_success_icon.json"
+                    app:lottie_loop="false" />
+
+                <TextView
+                    android:id="@+id/textView10"
+                    android:layout_width="wrap_content"
+                    android:textSize="24sp"
+                    android:layout_gravity="center"
+                    android:textColor="@color/success_color"
+                    android:layout_marginTop="20dp"
+                    android:fontFamily="@font/janna_bold"
+                    android:layout_height="wrap_content"
+                    android:text="@string/you_pass_the_exam" />
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="7dp"
+                    android:gravity="center"
+                    android:layout_marginStart="@dimen/margin_start_end"
+                    android:layout_marginEnd="@dimen/margin_start_end"
+                    android:orientation="horizontal">
+
+                    <TextView
+                        android:id="@+id/textView14"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:fontFamily="@font/janna_bold"
+                        android:textSize="16sp"
+                        android:text="@string/your_result" />
+
+                    <TextView
+                        android:id="@+id/degree"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="10dp"
+                        android:textColor="@color/success_color"
+                        android:fontFamily="@font/janna_bold"
+                        android:textSize="16sp"
+                        tools:text="40 %" />
+                </LinearLayout>
+
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="7dp"
+                    android:gravity="center"
+                    android:layout_marginStart="@dimen/margin_start_end"
+                    android:layout_marginEnd="@dimen/margin_start_end"
+                    android:orientation="horizontal">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:fontFamily="@font/janna_bold"
+                        android:textSize="16sp"
+                        android:text="@string/num_of_correct_answers" />
+
+                    <TextView
+                        android:id="@+id/correctAnswers"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="10dp"
+                        android:textColor="@color/success_color"
+                        android:fontFamily="@font/janna_bold"
+                        android:textSize="16sp"
+                        tools:text="8" />
+                </LinearLayout>
+
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="7dp"
+                    android:gravity="center"
+                    android:layout_marginStart="@dimen/margin_start_end"
+                    android:layout_marginEnd="@dimen/margin_start_end"
+                    android:orientation="horizontal">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:fontFamily="@font/janna_bold"
+                        android:textSize="16sp"
+                        android:text="@string/num_of_wrong_answers" />
+
+                    <TextView
+                        android:id="@+id/wrongAnswers"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="10dp"
+                        android:textColor="@color/fail_color"
+                        android:fontFamily="@font/janna_bold"
+                        android:textSize="16sp"
+                        tools:text="11" />
+                </LinearLayout>
+
+                <TextView
+                    android:id="@+id/tryNum"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:fontFamily="@font/janna_bold"
+                    android:textSize="16sp"
+                    android:layout_marginTop="7dp"
+                    android:layout_gravity="center"
+                    android:text="@string/no_more_try" />
+
+                <com.google.android.material.button.MaterialButton
+                    android:id="@+id/request_another_try"
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/button_height"
+                    android:layout_weight="1"
+                    android:gravity="center"
+                    android:insetTop="0dp"
+                    android:insetBottom="0dp"
+                    android:minWidth="83dp"
+                    android:minHeight="36dp"
+                    android:text="@string/request_another_try"
+                    android:textAllCaps="false"
+                    android:textColor="@color/white"
+                    android:textSize="18sp"
+                    android:textStyle="bold"
+                    app:backgroundTint="@color/purple"
+                    app:cornerRadius="35dp"
+                    android:layout_marginStart="@dimen/margin_start_end"
+                    android:layout_marginEnd="@dimen/margin_start_end"
+                    android:layout_marginTop="15dp"
+                    app:iconGravity="textStart" />
+
+
+                <com.google.android.material.button.MaterialButton
+                    android:id="@+id/get_certificate_now"
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/button_height"
+                    android:layout_weight="1"
+                    android:gravity="center"
+                    android:insetTop="0dp"
+                    android:layout_marginStart="@dimen/margin_start_end"
+                    android:layout_marginEnd="@dimen/margin_start_end"
+                    android:layout_marginTop="15dp"
+                    android:insetBottom="0dp"
+                    app:strokeWidth="1dp"
+                    app:strokeColor="@color/purple"
+                    android:minWidth="83dp"
+                    android:minHeight="36dp"
+                    android:text="@string/get_certificate_now"
+                    android:textAllCaps="false"
+                    android:layout_marginBottom="20dp"
+                    android:textColor="@color/purple"
+                    android:textSize="18sp"
+                    android:textStyle="bold"
+                    app:backgroundTint="@color/white"
+                    app:cornerRadius="35dp"
+                    app:iconGravity="textStart" />
+
+            </LinearLayout>
+        </androidx.cardview.widget.CardView>
+    </LinearLayout>
+</FrameLayout>

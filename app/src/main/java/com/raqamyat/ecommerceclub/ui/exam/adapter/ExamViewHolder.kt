@@ -25,7 +25,7 @@ class ExamViewHolder(
     fun bind(model: ExamModel, context: Activity, position: Int) {
         binding.questionNum.text = "السؤال ${position+1}"
         binding.question.text = model.question
-        val adapter = ExamQuestionAdapter(model.answers!!, context, listener)
+        val adapter = ExamQuestionAdapter(model, context, listener)
         binding.recycler.adapter = adapter
         binding.recycler.layoutManager = LinearLayoutManager(context , LinearLayoutManager.VERTICAL , false)
     }

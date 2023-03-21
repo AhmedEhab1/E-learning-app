@@ -28,9 +28,7 @@
             app:popExitAnim="@anim/push_right_out"
             app:popUpTo="@id/splashFragment"
             app:popUpToInclusive="true"/>
-        <action
-            android:id="@+id/action_splashFragment_to_lessonsFragment"
-            app:destination="@id/examFragment" />
+
     </fragment>
     <fragment
         android:id="@+id/onboardingFragment"
@@ -194,5 +192,40 @@
         android:id="@+id/examFragment"
         android:name="com.raqamyat.ecommerceclub.ui.exam.ExamFragment"
         android:label="exam_fragment"
-        tools:layout="@layout/exam_fragment" />
+        tools:layout="@layout/exam_fragment" >
+        <action
+            android:id="@+id/action_examFragment_to_examResultFailFragment"
+            app:destination="@id/examResultFailFragment"
+            app:enterAnim="@anim/push_left_in"
+            app:exitAnim="@anim/push_left_out"
+            app:popEnterAnim="@anim/push_right_in"
+            app:popExitAnim="@anim/push_right_out"/>
+        <action
+            android:id="@+id/action_examFragment_to_examResultSuccessFragment"
+            app:destination="@id/examResultSuccessFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/examResultFailFragment"
+        android:name="com.raqamyat.ecommerceclub.ExamResultFailFragment"
+        android:label="exam_result_fail"
+        tools:layout="@layout/exam_result_fail" >
+        <action
+            android:id="@+id/action_examResultFailFragment_to_lessonsFragment"
+            app:destination="@id/lessonsFragment" />
+        <action
+            android:id="@+id/action_examResultFailFragment_to_examInstructions"
+            app:destination="@id/examInstructions" />
+    </fragment>
+    <fragment
+        android:id="@+id/examResultSuccessFragment"
+        android:name="com.raqamyat.ecommerceclub.ExamResultSuccessFragment"
+        android:label="exam_result_success"
+        tools:layout="@layout/exam_result_success" >
+        <action
+            android:id="@+id/action_examResultSuccessFragment_to_examInstructions"
+            app:destination="@id/examInstructions" />
+        <action
+            android:id="@+id/action_examResultSuccessFragment_to_homeFragment"
+            app:destination="@id/homeFragment" />
+    </fragment>
 </navigation>

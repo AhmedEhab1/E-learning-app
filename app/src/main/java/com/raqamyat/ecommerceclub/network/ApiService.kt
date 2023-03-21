@@ -31,8 +31,14 @@ interface ApiService {
     @POST("lessons/update")
     suspend fun updateLesson(@Body request: UpdateLessonParams?) : APIResponse<LastEpisode>
 
+    @POST("exams/answer")
+    suspend fun examAnswers(@Body request: List<AnswersRequest>?) : APIResponse<ExamAnswersResponse>
+
     @POST("forget-password/rest-password")
     suspend fun resetPassword(@Body request: ResetPasswordModel?) : APIResponse<Any>
+
+    @POST("lessons/review")
+    suspend fun addQuestion(@Body request: AddQuestionRequest?) : APIResponse<Any>
 
     @GET("welcome")
     suspend fun getOnBoardingData() : APIResponse<List<WelcomeModel>>

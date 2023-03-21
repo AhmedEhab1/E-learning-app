@@ -16,4 +16,6 @@
     <color name="otp_bg">#F8F8F8</color>
     <color name="textColorGray">#919699</color>
     <color name="hint_color">#B8B8B8</color>
+    <color name="fail_color">#FF7D7D</color>
+    <color name="success_color">#00D284</color>
 </resources>

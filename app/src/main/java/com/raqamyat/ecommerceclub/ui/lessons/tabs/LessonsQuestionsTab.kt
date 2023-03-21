@@ -6,20 +6,30 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
+import androidx.fragment.app.viewModels
+import androidx.lifecycle.lifecycleScope
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.raqamyat.ecommerceclub.R
+import com.raqamyat.ecommerceclub.base.BaseFragment
 import com.raqamyat.ecommerceclub.databinding.LessonsQuestionsTabBinding
 import com.raqamyat.ecommerceclub.databinding.LessonsTabFragmentBinding
+import com.raqamyat.ecommerceclub.entities.AddQuestionRequest
 import com.raqamyat.ecommerceclub.entities.LastEpisode
 import com.raqamyat.ecommerceclub.entities.Question
 import com.raqamyat.ecommerceclub.ui.lessons.LessonsAdapter
+import com.raqamyat.ecommerceclub.ui.lessons.LessonsViewModel
 import com.raqamyat.ecommerceclub.ui.lessons.QuestionsDialog
 import com.raqamyat.ecommerceclub.ui.lessons.adapters.LessonQuestionsAdapter
 import com.raqamyat.ecommerceclub.utilities.errorDialog.ErrorDialog
-
-class LessonsQuestionsTab(private val model: List<Question>) : Fragment(),
+import dagger.hilt.android.AndroidEntryPoint
+import kotlinx.coroutines.launch
+@AndroidEntryPoint
+class LessonsQuestionsTab(private val model: LastEpisode) : BaseFragment(),
     QuestionsDialog.QuestionsListener {
-    private lateinit var binding : LessonsQuestionsTabBinding;
+    private lateinit var binding : LessonsQuestionsTabBinding
+    private val viewModel: LessonsQuestionViewModel by viewModels()
+
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
@@ -33,7 +43,8 @@ class LessonsQuestionsTab(private val model: List<Question>) : Fragment(),
     }
 
     private fun init(){
-        initAdapter(model)
+        initAdapter(model.questions)
+        requestResponse()
         binding.ask.setOnClickListener{openAskDialog()}
     }
 
@@ -46,8 +57,20 @@ class LessonsQuestionsTab(private val model: List<Question>) : Fragment(),
         binding.recycler.layoutManager =LinearLayoutManager(requireActivity(), LinearLayoutManager.VERTICAL , false)
     }
 
-    override fun onAddQuestionClicked(position: Int) {
-        TODO("Not yet implemented")
+    override fun onAddQuestionClicked(question: String) {
+        showLoading()
+        viewModel.addQuestion(AddQuestionRequest(question,model.id))
+    }
+
+    private fun requestResponse() {
+        lifecycleScope.launch {
+            viewModel.response.observe(viewLifecycleOwner) {
+                lifecycleScope.launch {
+                    dismissLoading()
+                    showErrorDialog(it?.message!!)
+                }
+            }
+        }
     }
 
     private fun openAskDialog(){

@@ -20,6 +20,7 @@ class ExamAdapter(private val data: List<ExamModel>, private val context: Activi
 
     override fun onBindViewHolder(holder: ExamViewHolder, position: Int) {
         holder.bind(data[position], context, position)
+        holder.setIsRecyclable(false);
     }
 
     override fun getItemCount(): Int {
@@ -35,7 +36,7 @@ class ExamAdapter(private val data: List<ExamModel>, private val context: Activi
     }
 
     interface AnswersListener {
-        fun onAnswerClicked(position: Int)
+        fun onAnswerClicked(request: AnswersRequest)
     }
 }
 

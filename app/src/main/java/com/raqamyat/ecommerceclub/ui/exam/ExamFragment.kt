@@ -2,21 +2,24 @@ package com.raqamyat.ecommerceclub.ui.exam
 
 import android.os.Bundle
 import android.os.CountDownTimer
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
+import androidx.navigation.Navigation
 import androidx.recyclerview.widget.LinearLayoutManager
+import com.raqamyat.ecommerceclub.R
 import com.raqamyat.ecommerceclub.base.BaseFragment
 import com.raqamyat.ecommerceclub.databinding.ExamFragmentBinding
+import com.raqamyat.ecommerceclub.entities.AnswersModel
+import com.raqamyat.ecommerceclub.entities.AnswersRequest
+import com.raqamyat.ecommerceclub.entities.ExamAnswersResponse
 import com.raqamyat.ecommerceclub.entities.ExamResponse
 import com.raqamyat.ecommerceclub.ui.exam.adapter.ExamAdapter
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.launch
 import java.util.concurrent.TimeUnit
-import kotlin.math.roundToInt
 
 
 @AndroidEntryPoint
@@ -26,6 +29,7 @@ class ExamFragment : BaseFragment(), ExamAdapter.AnswersListener {
     private lateinit var linearLayoutManager: LinearLayoutManager
     private var position = 0
     private lateinit var examResponse: ExamResponse
+    private val answersRequest : ArrayList<AnswersRequest> = ArrayList()
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?
@@ -45,6 +49,7 @@ class ExamFragment : BaseFragment(), ExamAdapter.AnswersListener {
         requestResponse()
         changeQuestion()
         timer()
+        answersResponse()
     }
 
     private fun getExam() {
@@ -70,8 +75,29 @@ class ExamFragment : BaseFragment(), ExamAdapter.AnswersListener {
         }
     }
 
+    private fun answersResponse() {
+        lifecycleScope.launch {
+            viewModel.examAnswersResponse.observe(viewLifecycleOwner) {
+                dismissLoading()
+                val model: ExamAnswersResponse = it?.data!!
+                var bundle = Bundle()
+                bundle.putSerializable("model", model as java.io.Serializable)
+                if (model.isPass!!){
+                    Navigation.findNavController(requireView()).navigate(
+                        R.id.action_examFragment_to_examResultSuccessFragment, bundle
+                    )
+                }else{
+                    Navigation.findNavController(requireView()).navigate(
+                        R.id.action_examFragment_to_examResultFailFragment, bundle
+                    )
+                }
+            }
+        }
+    }
+
     private fun initData(model: ExamResponse) {
         examResponse = model
+        crateAnswersRequest()
         val adapter = ExamAdapter(model.exam!!, requireActivity(), this)
         binding.recycler.adapter = adapter
         linearLayoutManager = object : LinearLayoutManager(requireActivity()) {
@@ -91,7 +117,9 @@ class ExamFragment : BaseFragment(), ExamAdapter.AnswersListener {
             linearLayoutManager.scrollToPositionWithOffset(position - 1, 0);
             position -= 1
             btnVisibility()
-
+        }
+        binding.examResult.setOnClickListener {
+            viewModel.examAnswers(answersRequest)
         }
     }
 
@@ -109,10 +137,6 @@ class ExamFragment : BaseFragment(), ExamAdapter.AnswersListener {
             binding.previousQuestion.visibility = View.VISIBLE
             binding.nextQuestion.visibility = View.VISIBLE
         }
-    }
-
-    override fun onAnswerClicked(position: Int) {
-
     }
 
     private fun timer(){
@@ -134,5 +158,16 @@ class ExamFragment : BaseFragment(), ExamAdapter.AnswersListener {
         percentage *= 100
         binding.percentage.text = "${percentage.toInt()} %"
         binding.progressBar.progress = percentage.toInt()
+    }
+
+    private fun crateAnswersRequest(){
+        for (i in examResponse.exam!!.indices) {
+            answersRequest.add(AnswersRequest(examResponse.exam!![i].id,null ))
+        }
+    }
+
+    override fun onAnswerClicked(request: AnswersRequest) {
+        answersRequest[position].answer_id = request.answer_id
+        answersRequest[position].question_id = request.question_id
     }
 }

@@ -22,4 +22,12 @@ class HomeRepository@Inject constructor (private val  apiService: ApiService) {
         return apiService.updateLesson(request)
     }
 
+    suspend fun addQuestion(request: AddQuestionRequest): APIResponse<Any> {
+        return apiService.addQuestion(request)
+    }
+
+    suspend fun examAnswers(request: List<AnswersRequest>): APIResponse<ExamAnswersResponse> {
+        return apiService.examAnswers(request)
+    }
+
 }

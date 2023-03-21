@@ -23,9 +23,13 @@ class ExamQuestionViewHolder(
 ) :
     RecyclerView.ViewHolder(binding.root) {
 
-    fun bind(model: AnswersModel, context: Activity, position: Int) {
+    fun bind(model: AnswersModel, context: Activity, position: Int, selectedItem :Int) {
         binding.answer.text = model.title
-
+        if (position == selectedItem){
+            binding.checkImage.setImageDrawable(ContextCompat.getDrawable(context, R.drawable.checkmark_circle_icon))
+        }else{
+            binding.checkImage.setImageDrawable(ContextCompat.getDrawable(context, R.drawable.question_item_circle))
+        }
     }
 
 }

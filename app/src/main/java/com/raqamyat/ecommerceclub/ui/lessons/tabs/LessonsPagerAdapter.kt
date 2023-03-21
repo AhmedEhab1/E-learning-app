@@ -27,7 +27,7 @@ class LessonsPagerAdapter(
                 return LessonsTabFragment(data, listener , positionAdapter)
             }
             2 -> {
-                return LessonsQuestionsTab(data[positionAdapter].questions)
+                return LessonsQuestionsTab(data[positionAdapter])
             }
             else -> {
                 return AboutLessonFragment(data, listener , positionAdapter)

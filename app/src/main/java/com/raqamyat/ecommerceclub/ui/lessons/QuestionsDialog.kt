@@ -57,12 +57,13 @@ class QuestionsDialog() : DialogFragment() {
         binding.close.setOnClickListener{dismiss()}
         binding.send.setOnClickListener{
             dismiss()
+            listener?.onAddQuestionClicked(binding.question.text.toString())
         }
 
         return binding.root
     }
 
     interface QuestionsListener {
-        fun onAddQuestionClicked(position: Int)
+        fun onAddQuestionClicked(question: String)
     }
 }
