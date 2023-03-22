@@ -109,25 +109,7 @@ class LessonsFragment : BaseFragment(), LessonsAdapter.LessonsClickListener {
                 state: PlayerConstants.PlayerState
             ) {
                 super.onStateChange(youTubePlayer, state)
-                Log.d("lessonFragment", "onStateChange: $state")
-                dismissLoading()
-                if (state.toString() == "PAUSED") {
-                    showLoading()
-                    viewModel.updateLesson(
-                        UpdateLessonParams(
-                            time = currentSecond,
-                            episode_id = episode_id
-                        )
-                    )
-                } else if (state.toString() == "ENDED") {
-                    showLoading()
-                    viewModel.updateLesson(
-                        UpdateLessonParams(
-                            status = "done",
-                            episode_id = episode_id
-                        )
-                    )
-                }
+                updateLesson(state.toString())
             }
 
             override fun onCurrentSecond(
@@ -180,14 +162,18 @@ class LessonsFragment : BaseFragment(), LessonsAdapter.LessonsClickListener {
     }
 
     override fun onNextLessonClicked(position: Int) {
-        Log.d("TAG", "onNextLessonClicked: $position")
-        if (lastEpisode[position + 1].status == "open") {
-            episode_id = lastEpisode[position + 1].id
-            youTubePlayer.cueVideo(lastEpisode[position + 1].video_id, 0F)
-            linearLayoutManager.scrollToPositionWithOffset(position + 1, 0);
-        } else {
-            showErrorDialog("يجب اكمال الدرس اولا")
+        try {
+            if (lastEpisode[position + 1].status == "open" ||lastEpisode[position + 1].status == "done") {
+                episode_id = lastEpisode[position + 1].id
+                youTubePlayer.cueVideo(lastEpisode[position + 1].video_id, 0F)
+                linearLayoutManager.scrollToPositionWithOffset(position + 1, 0);
+            } else {
+                showErrorDialog("يجب اكمال الدرس اولا")
+            }
+        }catch (e :Exception){
+            Log.e("crash", "onNextLessonClicked: ", e)
         }
+
     }
 
     override fun onBackLessonClicked(position: Int) {
@@ -195,13 +181,41 @@ class LessonsFragment : BaseFragment(), LessonsAdapter.LessonsClickListener {
         linearLayoutManager.scrollToPositionWithOffset(position - 1, 0);
     }
 
+
+    private fun updateLesson(state: String) {
+        dismissLoading()
+        if (state == "PAUSED") {
+            showLoading()
+            viewModel.updateLesson(
+                UpdateLessonParams(
+                    time = currentSecond,
+                    episode_id = episode_id
+                )
+            )
+        } else if (state == "ENDED") {
+            showLoading()
+            viewModel.updateLesson(
+                UpdateLessonParams(
+                    status = "done",
+                    episode_id = episode_id
+                )
+            )
+        }
+    }
+
     private fun updateLessonResponse() {
         lifecycleScope.launch {
             viewModel.updateLessonResponse.observe(viewLifecycleOwner) {
+                for (i in lastEpisode.indices) {
+                    if (it?.data!!.id == lastEpisode[i].id){
+                        lastEpisode[i+1].status = "done"
+                    }
+                }
                 dismissLoading()
             }
         }
     }
+
     override fun onPause() {
         super.onPause()
         shouldRefreshOnResume = true

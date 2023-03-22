@@ -29,7 +29,7 @@ class ArticlesAdapter(private val data: List<BlogsModel>, private val context: C
     }
 
     interface ArticlesClickListener {
-        fun onArticlesItemClick(position: Int)
+        fun onArticlesItemClick(position: String)
     }
 }
 

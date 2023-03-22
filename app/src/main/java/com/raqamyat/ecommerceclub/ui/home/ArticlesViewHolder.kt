@@ -22,10 +22,8 @@ class ArticlesViewHolder(private val binding: ArticlesItemBinding, private val l
             R.drawable.profile_icon,
             binding.image
         )
-
-
         binding.viewHolder.setOnClickListener{
-            listener.onArticlesItemClick(position)
+//            listener.onArticlesItemClick(model.)
         }
     }
 }

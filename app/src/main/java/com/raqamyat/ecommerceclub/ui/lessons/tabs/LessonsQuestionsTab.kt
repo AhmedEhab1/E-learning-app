@@ -58,6 +58,7 @@ class LessonsQuestionsTab(private val model: LastEpisode) : BaseFragment(),
     }
 
     override fun onAddQuestionClicked(question: String) {
+        Log.d("x", "onAddQuestionClicked: $question")
         showLoading()
         viewModel.addQuestion(AddQuestionRequest(question,model.id))
     }
@@ -67,7 +68,7 @@ class LessonsQuestionsTab(private val model: LastEpisode) : BaseFragment(),
             viewModel.response.observe(viewLifecycleOwner) {
                 lifecycleScope.launch {
                     dismissLoading()
-                    showErrorDialog(it?.message!!)
+                    showSnackBar("تم اضافة السؤال بنجاح")
                 }
             }
         }
@@ -76,7 +77,7 @@ class LessonsQuestionsTab(private val model: LastEpisode) : BaseFragment(),
     private fun openAskDialog(){
         val bundle = Bundle()
         bundle.putString("message", "message")
-        QuestionsDialog().newInstance(this, bundle)
+        QuestionsDialog(this)
             .show(requireActivity().supportFragmentManager, "loading")
     }
 }

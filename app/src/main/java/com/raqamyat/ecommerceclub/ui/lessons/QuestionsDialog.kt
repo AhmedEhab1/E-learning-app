@@ -12,9 +12,9 @@ import com.raqamyat.ecommerceclub.databinding.ErrorDialogFragmentBinding
 import com.raqamyat.ecommerceclub.databinding.QuestionsDialogBinding
 import java.util.*
 
-class QuestionsDialog() : DialogFragment() {
+class QuestionsDialog(private  var listener: QuestionsListener) : DialogFragment() {
     private lateinit var binding: QuestionsDialogBinding
-    private var listener: QuestionsListener? = null
+//    private lateinit var listener: QuestionsListener
 
 
     override fun onCreateDialog(savedInstanceState: Bundle?): Dialog {
@@ -23,12 +23,13 @@ class QuestionsDialog() : DialogFragment() {
         return dialog
     }
 
-    fun newInstance(listener: QuestionsListener?, bundle: Bundle?): QuestionsDialog {
-        if (listener != null) this.listener = listener
-        val f = QuestionsDialog()
-        f.arguments = bundle
-        return f
-    }
+
+//    fun newInstance(listener: QuestionsListener, bundle: Bundle?): QuestionsDialog {
+//        this.listener = listener
+//        val f = QuestionsDialog()
+//        f.arguments = bundle
+//        return f
+//    }
 
 
     override fun onStart() {
@@ -48,7 +49,7 @@ class QuestionsDialog() : DialogFragment() {
         savedInstanceState: Bundle?
     ): View? {
         dialog!!.window
-            ?.getAttributes()?.windowAnimations = R.style.DialogStyle
+            ?.attributes?.windowAnimations = R.style.DialogStyle
         dialog!!.window!!.setGravity(Gravity.CENTER)
         setStyle(STYLE_NO_TITLE, R.style.DialogStyle)
         binding = QuestionsDialogBinding.inflate(inflater, container, false)
@@ -56,8 +57,8 @@ class QuestionsDialog() : DialogFragment() {
 
         binding.close.setOnClickListener{dismiss()}
         binding.send.setOnClickListener{
+            listener.onAddQuestionClicked(binding.question.text.toString())
             dismiss()
-            listener?.onAddQuestionClicked(binding.question.text.toString())
         }
 
         return binding.root

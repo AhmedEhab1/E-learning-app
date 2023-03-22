@@ -1,5 +1,7 @@
 package com.raqamyat.ecommerceclub.ui.home
 
+import android.content.Intent
+import android.net.Uri
 import android.os.Bundle
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
@@ -87,7 +89,10 @@ class HomeFragment : BaseFragment(), ArticlesAdapter.ArticlesClickListener {
         snapHelper.attachToRecyclerView(binding.recycler)
     }
 
-    override fun onArticlesItemClick(position: Int) {
+    override fun onArticlesItemClick(link: String) {
+        val i = Intent(Intent.ACTION_VIEW)
+        i.data = Uri.parse(link)
+        startActivity(i)
     }
 
     private fun continueStudying() {

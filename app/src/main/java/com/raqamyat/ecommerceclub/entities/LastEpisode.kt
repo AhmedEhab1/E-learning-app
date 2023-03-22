@@ -7,7 +7,7 @@ data class LastEpisode(
     val last_stopped_time: Float,
     val questions: List<Question>,
     val speaker: Speaker,
-    val status: String,
+    var status: String,
     val time: String,
     val title: String,
     val video_id: String
