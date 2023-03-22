@@ -39,13 +39,13 @@ class AboutLessonFragment(
     }
 
     private fun init() {
-        binding.description.text = model[position].description.parseAsHtml()
-        binding.name.text = model[position].speaker.name
-        binding.title.text = model[position].speaker.title
+        binding.description.text = model[position].description?.parseAsHtml()
+        binding.name.text = model[position].speaker?.name
+        binding.title.text = model[position].speaker?.title
         binding.image.clipToOutline = true
         ImageHelper().loadImage(
             requireActivity(),
-            model[position].speaker.image,
+            model[position].speaker?.image,
             R.drawable.profile_icon,
             binding.image
         )
@@ -57,7 +57,7 @@ class AboutLessonFragment(
     private fun openLinkedIn() {
         binding.linkIn.setOnClickListener {
             val i = Intent(Intent.ACTION_VIEW)
-            i.data = Uri.parse(model[position].speaker.linkedin)
+            i.data = Uri.parse(model[position].speaker?.linkedin)
             startActivity(i)
         }
     }

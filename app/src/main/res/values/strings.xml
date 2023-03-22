@@ -11,6 +11,7 @@
     <string name="create_account">إنشاء حساب</string>
     <string name="google_login">تسجيل الدخول عبر جوجل</string>
     <string name="test">888888</string>
+    <string name="checkbox_message">يجيب الموافقة على شروط الاستخدام</string>
     <string name="get_certificate_now">احصل على الشهادة الأن</string>
     <string name="request_another_try">طلب محاولة اخرى</string>
     <string name="you_pass_the_exam">لقد نجحت في تجاوز الاختبار</string>
@@ -79,6 +80,7 @@
     <string name="yes">نعم</string>
     <string name="cancel">إلغاء</string>
     <string name="error">خطاء</string>
+    <string name="alert">تنبية</string>
     <string name="error_message">حدث خطاء ما</string>
 
 </resources>

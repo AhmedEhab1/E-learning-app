@@ -10,6 +10,7 @@ import com.raqamyat.ecommerceclub.databinding.LessonsItemBinding
 import com.raqamyat.ecommerceclub.entities.LastEpisode
 import com.raqamyat.ecommerceclub.ui.lessons.tabs.LessonsPagerAdapter
 import com.raqamyat.ecommerceclub.ui.profile.ProfilePagerAdapter
+import java.util.*
 
 class LessonsViewHolder(
     private val binding: LessonsItemBinding,
@@ -26,7 +27,7 @@ class LessonsViewHolder(
     }
 
     private fun initTabLayout(context: Activity, model: List<LastEpisode> , position : Int) {
-        binding.tabLayout.id = binding.tabLayout.id+position
+        binding.tabLayout.id = binding.tabLayout.id +position+ Random().nextInt(10)
         binding.tabLayout.addTab(
             binding.tabLayout.newTab().setText(context.getString(R.string.about_lesson))
         )
@@ -37,7 +38,7 @@ class LessonsViewHolder(
         binding.tabLayout.tabGravity = TabLayout.GRAVITY_FILL
         val fragmentManager: FragmentManager =
             (context as FragmentActivity).supportFragmentManager
-        binding.viewPager.id = binding.viewPager.id+position
+        binding.viewPager.id = binding.viewPager.id+position+ Random().nextInt(10)
         binding.viewPager.adapter = LessonsPagerAdapter(fragmentManager, model, position , listener)
 
         binding.viewPager.currentItem = 0

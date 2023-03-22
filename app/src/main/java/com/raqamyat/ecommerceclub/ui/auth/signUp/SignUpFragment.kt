@@ -14,9 +14,10 @@ import com.raqamyat.ecommerceclub.entities.RegistrationParams
 import com.raqamyat.ecommerceclub.ui.auth.ShowPasswordHelper
 import com.raqamyat.ecommerceclub.ui.auth.UserData
 import com.raqamyat.ecommerceclub.utilities.FormValidation
+import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.launch
 
-
+@AndroidEntryPoint
 class SignUpFragment : BaseFragment() {
     private lateinit var binding: SignUpFragmentBinding
     private var show = false
@@ -80,6 +81,8 @@ class SignUpFragment : BaseFragment() {
             showErrorDialog(getString(R.string.enter_valid_password))
         }else if (!formValidation.isValidNumber(params.mobile.toString())){
             showErrorDialog(getString(R.string.enter_valid_mobile))
+        }else if (!binding.checkBox.isChecked){
+            showErrorDialog(getString(R.string.checkbox_message))
         }else {
             showLoading()
             viewModel.signUpRequest(params)
@@ -90,6 +93,7 @@ class SignUpFragment : BaseFragment() {
         viewModel.response.observe(viewLifecycleOwner){
             dismissLoading()
             UserData(requireActivity()).saveUserData(it!!.data)
+            getPreferencesHelper().putString("firstTime", "true")
             Navigation.findNavController(requireView()).navigate(
                 R.id.action_signUpFragment_to_homeFragment
             )

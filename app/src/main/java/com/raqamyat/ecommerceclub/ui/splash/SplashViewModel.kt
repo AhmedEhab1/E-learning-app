@@ -6,6 +6,7 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.raqamyat.ecommerceclub.entities.*
 import com.raqamyat.ecommerceclub.repository.AuthorizationRepository
+import com.raqamyat.ecommerceclub.repository.HomeRepository
 import com.raqamyat.ecommerceclub.repository.ProfileRepository
 import com.raqamyat.ecommerceclub.utilities.JsonHelper.isHttpException
 import dagger.hilt.android.lifecycle.HiltViewModel
@@ -19,11 +20,23 @@ class SplashViewModel @Inject constructor(
 ) : ViewModel() {
     val response: MutableLiveData<APIResponse<List<WelcomeModel>>?> = MutableLiveData()
     var errorMessage: MutableLiveData<String?> = MutableLiveData()
+    val homeResponse: MutableLiveData<APIResponse<HomeModel>?> = MutableLiveData()
 
     fun getOnBoardingData() {
         viewModelScope.launch {
             try {
                 response.value = auth.getOnBoardingData()
+            } catch (e: Throwable) {
+                Log.e("ViewModelError", e.toString())
+                errorMessage.value = isHttpException(e)
+            }
+        }
+    }
+
+    fun getHome() {
+        viewModelScope.launch {
+            try {
+                homeResponse.value = auth.getHome()
             } catch (e: Throwable) {
                 Log.e("ViewModelError", e.toString())
                 errorMessage.value = isHttpException(e)

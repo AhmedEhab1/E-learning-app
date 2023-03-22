@@ -21,6 +21,7 @@ class ProfileViewModel @Inject constructor(
     private val auth: ProfileRepository
 ) : ViewModel() {
     val response: MutableLiveData<APIResponse<UserModel>?> = MutableLiveData()
+    val logoutResponse: MutableLiveData<APIResponse<Any>?> = MutableLiveData()
     var errorMessage: MutableLiveData<String?> = MutableLiveData()
 
     fun uploadProfileImage(image: MultipartBody.Part) {
@@ -33,5 +34,18 @@ class ProfileViewModel @Inject constructor(
             }
         }
     }
+
+    fun logout() {
+        viewModelScope.launch {
+            try {
+                logoutResponse.value = auth.logout()
+            } catch (e: Throwable) {
+                Log.e("ViewModelError", e.toString())
+                errorMessage.value = isHttpException(e)
+            }
+        }
+    }
+
+
 
 }

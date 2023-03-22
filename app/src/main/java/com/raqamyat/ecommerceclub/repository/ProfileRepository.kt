@@ -11,6 +11,10 @@ class ProfileRepository@Inject constructor (private val  apiService: ApiService)
        return apiService.uploadProfileImage(image)
     }
 
+   suspend fun logout(): APIResponse<Any> {
+       return apiService.logout()
+    }
+
    suspend fun updateProfile(params: AccountInfoParams): APIResponse<UserModel> {
        return apiService.updateProfile(params)
     }

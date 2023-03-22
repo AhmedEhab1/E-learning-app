@@ -26,16 +26,21 @@ class UpdatePasswordFragment : BaseFragment() {
     private lateinit var binding: UpdatePasswordFragmentBinding
     private var formValidation = FormValidation()
     private val viewModel: UpdatePasswordViewModel by viewModels()
+    private var shouldRefreshOnResume = false
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        init()
+        if (!shouldRefreshOnResume) {
+            init()
+        }
     }
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?
     ): View? {
-        binding = UpdatePasswordFragmentBinding.inflate(inflater, container, false)
+        if (!shouldRefreshOnResume) {
+            binding = UpdatePasswordFragmentBinding.inflate(inflater, container, false)
+        }
         return binding.root
     }
 
@@ -85,5 +90,10 @@ class UpdatePasswordFragment : BaseFragment() {
                 showErrorDialog(it.toString())
             }
         }
+    }
+
+    override fun onPause() {
+        super.onPause()
+        shouldRefreshOnResume = true
     }
 }

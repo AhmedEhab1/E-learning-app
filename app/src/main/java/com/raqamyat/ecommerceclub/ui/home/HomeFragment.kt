@@ -17,7 +17,9 @@ import com.raqamyat.ecommerceclub.R
 import com.raqamyat.ecommerceclub.base.BaseFragment
 import com.raqamyat.ecommerceclub.databinding.ForgetPasswordFragmentBinding
 import com.raqamyat.ecommerceclub.databinding.HomeFragmentBinding
+import com.raqamyat.ecommerceclub.entities.HomeDataResponse
 import com.raqamyat.ecommerceclub.entities.HomeModel
+import com.raqamyat.ecommerceclub.entities.WelcomeModel
 import com.raqamyat.ecommerceclub.ui.onBoarding.adapter.OnboardingAdapter
 import com.raqamyat.ecommerceclub.ui.profile.viewModels.ProfileViewModel
 import dagger.hilt.android.AndroidEntryPoint
@@ -54,8 +56,12 @@ class HomeFragment : BaseFragment(), ArticlesAdapter.ArticlesClickListener {
     }
 
     private fun getHome() {
-        showLoading()
-        viewModel.getHome()
+        if (HomeDataResponse.model != null){
+            initData(HomeDataResponse.model!!)
+        }else{
+            showLoading()
+            viewModel.getHome()
+        }
     }
 
     private fun errorMessage() {

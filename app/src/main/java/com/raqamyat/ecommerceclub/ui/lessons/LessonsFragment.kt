@@ -19,6 +19,7 @@ import com.pierfrancescosoffritti.androidyoutubeplayer.core.ui.DefaultPlayerUiCo
 import com.raqamyat.ecommerceclub.R
 import com.raqamyat.ecommerceclub.base.BaseFragment
 import com.raqamyat.ecommerceclub.databinding.LessonsFragmentBinding
+import com.raqamyat.ecommerceclub.entities.HomeDataResponse
 import com.raqamyat.ecommerceclub.entities.LastEpisode
 import com.raqamyat.ecommerceclub.entities.UpdateLessonParams
 import com.raqamyat.ecommerceclub.ui.auth.UserData
@@ -80,8 +81,9 @@ class LessonsFragment : BaseFragment(), LessonsAdapter.LessonsClickListener {
                     dismissLoading()
                     initAdapter(it!!.data)
                     lastEpisode = it.data
-                    episode_id = lastEpisode[0].id
-                    videoId = it.data[0].video_id
+                    episode_id = lastEpisode[0].id!!
+                    videoId = it.data[0].video_id!!
+                    getLastLesson()
                 }
             }
         }
@@ -163,26 +165,40 @@ class LessonsFragment : BaseFragment(), LessonsAdapter.LessonsClickListener {
 
     override fun onNextLessonClicked(position: Int) {
         try {
-            if (lastEpisode[position + 1].status == "open" ||lastEpisode[position + 1].status == "done") {
-                episode_id = lastEpisode[position + 1].id
-                youTubePlayer.cueVideo(lastEpisode[position + 1].video_id, 0F)
+            if (lastEpisode[position + 1].status == "open" || lastEpisode[position + 1].status == "done") {
+                episode_id = lastEpisode[position + 1].id!!
+                youTubePlayer.cueVideo(lastEpisode[position + 1].video_id!!, 0F)
                 linearLayoutManager.scrollToPositionWithOffset(position + 1, 0);
             } else {
                 showErrorDialog("يجب اكمال الدرس اولا")
             }
-        }catch (e :Exception){
+        } catch (e: Exception) {
             Log.e("crash", "onNextLessonClicked: ", e)
         }
 
     }
 
     override fun onBackLessonClicked(position: Int) {
-        youTubePlayer.cueVideo(lastEpisode[position - 1].video_id, 0F)
-        linearLayoutManager.scrollToPositionWithOffset(position - 1, 0);
+        try {
+            youTubePlayer.cueVideo(lastEpisode[position - 1].video_id!!, 0F)
+            linearLayoutManager.scrollToPositionWithOffset(position - 1, 0);
+        }catch (e:Exception){
+            Log.e("TAG", "onBackLessonClicked: ",e )
+        }
     }
 
+    private fun getLastLesson() {
+        val model = HomeDataResponse.model
+        for (i in lastEpisode.indices) {
+            if (model?.last_episode?.id == lastEpisode[i].id) {
+                episode_id = lastEpisode[i].id!!
+                linearLayoutManager.scrollToPositionWithOffset(i, 0);
+            }
+        }
+    }
 
     private fun updateLesson(state: String) {
+        Log.d("ehab", "updateLesson: " + episode_id)
         dismissLoading()
         if (state == "PAUSED") {
             showLoading()
@@ -207,8 +223,10 @@ class LessonsFragment : BaseFragment(), LessonsAdapter.LessonsClickListener {
         lifecycleScope.launch {
             viewModel.updateLessonResponse.observe(viewLifecycleOwner) {
                 for (i in lastEpisode.indices) {
-                    if (it?.data!!.id == lastEpisode[i].id){
-                        lastEpisode[i+1].status = "done"
+                    if (it?.data!!.id == lastEpisode[i].id) {
+                        lastEpisode[i + 1].status = "open"
+                        linearLayoutManager.scrollToPositionWithOffset(i + 1, 0);
+                        lastEpisode[i].status = "done"
                     }
                 }
                 dismissLoading()

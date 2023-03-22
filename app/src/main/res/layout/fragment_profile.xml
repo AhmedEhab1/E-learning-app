@@ -38,7 +38,7 @@
                 android:textSize="15sp" />
 
             <ImageView
-                android:id="@+id/imageView4"
+                android:id="@+id/logout"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="20dp"
@@ -49,8 +49,8 @@
         <FrameLayout
             android:layout_width="155dp"
             android:layout_height="wrap_content"
-            android:layout_marginTop="40dp"
-            android:layout_gravity="center">
+            android:layout_gravity="center"
+            android:layout_marginTop="40dp">
 
             <ImageView
                 android:id="@+id/editImage"
@@ -61,11 +61,11 @@
 
             <ImageView
                 android:id="@+id/profileImage"
-                android:scaleType="centerCrop"
                 android:layout_width="140dp"
                 android:layout_height="140dp"
-                android:background="@drawable/image_circle"
                 android:layout_gravity="center"
+                android:background="@drawable/image_circle"
+                android:scaleType="centerCrop"
                 android:src="@drawable/profile_icon" />
         </FrameLayout>
 
@@ -73,16 +73,15 @@
             android:id="@+id/profileTabLayout"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            app:tabGravity="fill"
             android:layout_marginTop="30dp"
+            app:tabGravity="fill"
             app:tabMode="fixed" />
 
         <androidx.viewpager.widget.ViewPager
             android:id="@+id/profileViewPager"
             android:layout_width="match_parent"
-            android:layoutDirection="locale"
             android:layout_height="wrap_content"
-             />
+            android:layoutDirection="locale" />
 
     </LinearLayout>
 </FrameLayout>

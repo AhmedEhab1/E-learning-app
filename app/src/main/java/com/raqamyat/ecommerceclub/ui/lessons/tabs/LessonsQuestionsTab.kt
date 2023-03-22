@@ -24,43 +24,53 @@ import com.raqamyat.ecommerceclub.ui.lessons.adapters.LessonQuestionsAdapter
 import com.raqamyat.ecommerceclub.utilities.errorDialog.ErrorDialog
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.launch
+
 @AndroidEntryPoint
 class LessonsQuestionsTab(private val model: LastEpisode) : BaseFragment(),
     QuestionsDialog.QuestionsListener {
-    private lateinit var binding : LessonsQuestionsTabBinding
+    private lateinit var binding: LessonsQuestionsTabBinding
     private val viewModel: LessonsQuestionViewModel by viewModels()
+    private var shouldRefreshOnResume = false
 
 
     override fun onCreateView(
-        inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
-        binding = LessonsQuestionsTabBinding.inflate(inflater, container, false)
+        inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?
+    ): View? {
+        if (!shouldRefreshOnResume) {
+            binding = LessonsQuestionsTabBinding.inflate(inflater, container, false)
+        }
         return binding.root
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        init()
+        if (!shouldRefreshOnResume) {
+            init()
+        }
     }
 
-    private fun init(){
-        initAdapter(model.questions)
+    private fun init() {
+        initAdapter(model.questions!!)
         requestResponse()
-        binding.ask.setOnClickListener{openAskDialog()}
+        errorMessage()
+        binding.ask.setOnClickListener { openAskDialog() }
     }
 
     private fun initAdapter(model: List<Question>) {
-        if (model.isNotEmpty()){
+        if (model.isNotEmpty()) {
             binding.noData.visibility = View.GONE
         }
         val adapter = LessonQuestionsAdapter(model, requireActivity())
         binding.recycler.adapter = adapter
-        binding.recycler.layoutManager =LinearLayoutManager(requireActivity(), LinearLayoutManager.VERTICAL , false)
+        binding.recycler.layoutManager =
+            LinearLayoutManager(requireActivity(), LinearLayoutManager.VERTICAL, false)
     }
 
     override fun onAddQuestionClicked(question: String) {
         Log.d("x", "onAddQuestionClicked: $question")
         showLoading()
-        viewModel.addQuestion(AddQuestionRequest(question,model.id))
+        viewModel.addQuestion(AddQuestionRequest(question, model.id!!))
+
     }
 
     private fun requestResponse() {
@@ -69,15 +79,32 @@ class LessonsQuestionsTab(private val model: LastEpisode) : BaseFragment(),
                 lifecycleScope.launch {
                     dismissLoading()
                     showSnackBar("تم اضافة السؤال بنجاح")
+                    var question: List<Question> = it?.data!!
+                    initAdapter(question)
+
                 }
             }
         }
     }
 
-    private fun openAskDialog(){
+
+    private fun errorMessage() {
+        lifecycleScope.launch {
+            viewModel.errorMessage.observe(viewLifecycleOwner) {
+                showErrorDialog(it.toString())
+            }
+        }
+    }
+
+    private fun openAskDialog() {
         val bundle = Bundle()
         bundle.putString("message", "message")
         QuestionsDialog(this)
             .show(requireActivity().supportFragmentManager, "loading")
+    }
+
+    override fun onPause() {
+        super.onPause()
+        shouldRefreshOnResume = true
     }
 }

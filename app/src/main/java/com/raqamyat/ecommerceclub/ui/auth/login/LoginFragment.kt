@@ -93,6 +93,7 @@ class LoginFragment : BaseFragment() {
             viewModel.loginResponse.observe(viewLifecycleOwner) {
                 dismissLoading()
                 UserData(requireActivity()).saveUserData(it!!.data)
+                getPreferencesHelper().putString("firstTime", "true")
                 Navigation.findNavController(requireView()).navigate(
                     R.id.action_loginFragment_to_homeFragment
                 )

@@ -11,4 +11,6 @@ data class UserModel(
     var mobile: String? = null,
     var name: String? = null,
     var token: String? = null,
-    var verify_code: String? = null)
+    var verify_code: String? = null,
+    var firstTime : String? = null
+)

@@ -79,19 +79,20 @@
             android:layout_marginVertical="7dp"
             android:gravity="center"
             android:insetTop="0dp"
-            android:textSize="18sp"
             android:insetBottom="0dp"
-            app:icon="@drawable/icon_ionic_logo_google"
-            app:iconPadding="10dp"
             android:minWidth="83dp"
             android:minHeight="36dp"
             android:text="@string/google_login"
             android:textAllCaps="false"
             android:textColor="@color/white"
+            android:textSize="18sp"
             android:textStyle="bold"
+            android:visibility="gone"
             app:backgroundTint="@color/google_color"
             app:cornerRadius="35dp"
-            app:iconGravity="textStart" />
+            app:icon="@drawable/icon_ionic_logo_google"
+            app:iconGravity="textStart"
+            app:iconPadding="10dp" />
     </LinearLayout>
 
     <LinearLayout

@@ -15,7 +15,7 @@ import javax.inject.Inject
 class LessonsQuestionViewModel @Inject constructor(
     private val repository: HomeRepository
 ) : ViewModel() {
-    val response: MutableLiveData<APIResponse<Any>?> = MutableLiveData()
+    val response: MutableLiveData<APIResponse<List<Question>>?> = MutableLiveData()
     var errorMessage: MutableLiveData<String?> = MutableLiveData()
 
     fun addQuestion(addQuestionRequest: AddQuestionRequest) {

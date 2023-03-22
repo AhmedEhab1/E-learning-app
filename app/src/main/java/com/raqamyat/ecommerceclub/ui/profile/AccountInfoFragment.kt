@@ -21,16 +21,21 @@ class AccountInfoFragment : BaseFragment() {
     private lateinit var binding: AccountInfoFragmentBinding
     private var formValidation = FormValidation()
     private val viewModel: AccountInfoViewModel by viewModels()
+    private var shouldRefreshOnResume = false
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        init()
+        if (!shouldRefreshOnResume) {
+            init()
+        }
     }
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?
     ): View? {
-        binding = AccountInfoFragmentBinding.inflate(inflater, container, false)
+        if (!shouldRefreshOnResume) {
+            binding = AccountInfoFragmentBinding.inflate(inflater, container, false)
+        }
         return binding.root
     }
 
@@ -58,7 +63,7 @@ class AccountInfoFragment : BaseFragment() {
             showErrorDialog(getString(R.string.enter_valid_name))
         } else if (!formValidation.isValidNumber(params.mobile.toString())) {
             showErrorDialog(getString(R.string.enter_valid_mobile))
-        } else{
+        } else {
             showLoading()
             viewModel.updateProfile(params)
         }
@@ -72,7 +77,7 @@ class AccountInfoFragment : BaseFragment() {
         }
     }
 
-    private fun setData(){
+    private fun setData() {
         var userModel = UserData(requireActivity())
         binding.name.setText(userModel.getUserData()?.name.toString())
         binding.email.setText(userModel.getUserData()?.email.toString())
@@ -86,5 +91,10 @@ class AccountInfoFragment : BaseFragment() {
                 showErrorDialog(it.toString())
             }
         }
+    }
+
+    override fun onPause() {
+        super.onPause()
+        shouldRefreshOnResume = true
     }
 }

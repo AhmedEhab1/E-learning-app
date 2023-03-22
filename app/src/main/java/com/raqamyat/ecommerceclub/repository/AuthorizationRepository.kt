@@ -29,4 +29,8 @@ class AuthorizationRepository@Inject constructor (private val  apiService: ApiSe
     suspend fun getOnBoardingData(): APIResponse<List<WelcomeModel>> {
        return apiService.getOnBoardingData()
     }
+
+    suspend fun getHome(): APIResponse<HomeModel> {
+        return apiService.getHome()
+    }
 }

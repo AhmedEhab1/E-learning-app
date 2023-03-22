@@ -1,5 +1,6 @@
 package com.raqamyat.ecommerceclub.entities
 
+
 data class BlogsModel(
     var id : Int? = null,
     var title : String? = null,

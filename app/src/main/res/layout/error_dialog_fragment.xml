@@ -30,7 +30,7 @@
                 android:textSize="15sp"
                 android:fontFamily="@font/janna_bold"
                 android:textAlignment="center"
-                android:text="@string/error" />
+                android:text="@string/alert" />
 
 
 

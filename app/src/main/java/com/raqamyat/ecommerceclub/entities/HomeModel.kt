@@ -1,5 +1,6 @@
 package com.raqamyat.ecommerceclub.entities
 
+
 data class HomeModel(
     var blogs: List<BlogsModel>? = null,
     var certificates: List<Any>? = null,

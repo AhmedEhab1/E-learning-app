@@ -23,6 +23,8 @@ class LessonsNumberViewHolder(
         binding.title.text = model.title
         if (model.status == "open"){
             binding.lock.setImageDrawable(ContextCompat.getDrawable(context, R.drawable.icon_material_lock_open))
+        }else if (model.status == "done"){
+            binding.lock.setImageDrawable(ContextCompat.getDrawable(context, R.drawable.checkmark_circle_icon))
         }else if (model.status == "locked"){
             binding.lock.setImageDrawable(ContextCompat.getDrawable(context, R.drawable.icon_material_lock_outline3))
             binding.title.setTextColor(ContextCompat.getColor(context, R.color.text_color_gray));

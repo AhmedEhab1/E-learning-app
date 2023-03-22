@@ -314,7 +314,7 @@
                         android:layout_width="match_parent"
                         android:layout_height="@dimen/button_height"
                         android:layout_marginTop="7dp"
-                        android:layout_marginBottom="20dp"
+                        android:layout_marginBottom="90dp"
                         android:gravity="center"
                         android:insetTop="0dp"
                         android:insetBottom="0dp"
